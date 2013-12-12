@@ -1,0 +1,15 @@
+<div class="title">All posts</div>
+<table class="posts">
+  <caption><%= link_to "Post your thing", new_post_path if @existing.nil? %></caption>
+  <tr>
+    <th>User</th>
+    <th>Item</th>
+  </tr>
+ 
+<% @posts.each do |post| %>
+  <tr>
+    <td><%= post.user.handle %></td>
+    <td><%= link_to post.item, post_path(post.id) %></td>
+  </tr>
+<% end %>
+</table>

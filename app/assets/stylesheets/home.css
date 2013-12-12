@@ -1,0 +1,41 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+}
+
+html, body {
+  width: 100%
+}
+
+body {
+  background-color: #fff;
+  background-image: url(/assets/mclogo-black-small.png);
+  background-position: 4em 2em;
+  background-repeat: no-repeat;
+  background-attachment: fixed
+}
+
+.title {
+  width: 100%;
+  text-align: center;
+  padding-top: .8em;
+  font-size: 48pt;
+  font-family: sans-serif;
+  color: #000;
+  font-weight: bold;
+}
+
+.hey_reddit {
+  width: 80%;
+  margin: 4em auto
+}
+
+p {
+  margin: 2em 0;
+  text-indent: 3em;
+  text-align: justify;
+  line-height: 1.5em
+}

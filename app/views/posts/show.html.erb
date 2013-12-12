@@ -1,0 +1,21 @@
+<div class="title">A post</div>
+<div class="show">
+  <p>
+    <strong>User name:</strong>
+    <%= session[:user_handle] %>
+  </p>
+
+  <p>
+    <strong>Post:</strong>
+    <%= link_to @post.item, @post.item if @post.kind == "project" %>
+  </p>
+
+  <p>
+    <strong>Post kind:</strong>
+    <%= @post.kind %>
+  </p>
+
+  <p>
+    <%= link_to "Back to all the posts", posts_path %>
+  </p>
+</div>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Makers' Circle</title>
+  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+<% unless controller.controller_name == "users" && controller.action_name == "new" %>
+<% if session[:login].nil? %>
+<%= form_for :user, url: login_path, html: {class: "login"} do |f| %> 
+  <p>
+    <%= f.label :email %><br>
+    <%= f.text_field :email %>
+  </p>
+ 
+  <p>
+    <%= f.label :password %><br>
+    <%= f.password_field :password %>
+  </p>
+ 
+  <p>
+    <%= f.submit "Log in" %>
+  </p>
+<% end %>
+<% else %>
+<%= link_to 'logout', logout_path, class: "login" %>
+<% end %>
+<% end %>
+
+<%= yield %>
+
+</body>
+</html>

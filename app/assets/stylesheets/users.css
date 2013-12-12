@@ -1,0 +1,12 @@
+form {
+  width: 60%;
+  margin: 2em auto;
+}
+
+form > * {
+  margin: 0
+}
+
+.show {
+  margin-left: 15%
+}
