@@ -1,12 +1,10 @@
-form {
-  width: 60%;
-  margin: 2em auto;
+form, .show {
+  width: 70%;
+  margin: 2em auto
 }
 
-form > * {
-  margin: 0
-}
-
-.show {
-  margin-left: 15%
+label {
+  display: inline-block;
+  width: 8em;
+  text-indent: 0
 }

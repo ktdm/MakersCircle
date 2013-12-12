@@ -21,6 +21,10 @@ class PostsController < ApplicationController
 
   def show
     @post = Post.find params[:id]
+    @comments = Comment.order(id: :asc).find_all_by_post_id(params[:id])
+    @comments.each do |comment|
+      comment.user = User.find comment.user_id
+    end
   end
 
   private

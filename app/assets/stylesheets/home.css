@@ -15,13 +15,13 @@ body {
   background-image: url(/assets/mclogo-black-small.png);
   background-position: 4em 2em;
   background-repeat: no-repeat;
-  background-attachment: fixed
+  background-attachment: scroll
 }
 
 .title {
   width: 100%;
   text-align: center;
-  padding-top: .8em;
+  margin: .8em 0;
   font-size: 48pt;
   font-family: sans-serif;
   color: #000;
