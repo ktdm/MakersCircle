@@ -11,7 +11,7 @@ class HomeController < ApplicationController
     else
       flash[:notice] = "Not found."
     end
-    redirect_to :back
+    redirect_to "/posts"
   end
 
   def logout

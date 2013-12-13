@@ -1,15 +1,35 @@
 <div class="title">All posts</div>
-<table class="posts">
-  <caption><%= link_to "Post your thing", new_post_path if @existing.nil? %></caption>
+<div class="subhead">Projects and Snippets</div>
+<table class="threads">
+  <caption><%= link_to "Post your thing", new_post_path if @allow_create %></caption>
   <tr>
-    <th>User</th>
-    <th>Item</th>
+    <th id="title">Title</th>
+    <th id="user">User</th>
+    <th id="comments"></th>
   </tr>
  
-<% @posts.each do |post| %>
+<%- @posts.each do |post|
+      comment_count = post.comment_threads[0].comment_count -%>
   <tr>
+    <td><%= link_to (post.comment_threads[0].title || "something"), post_path(post.id) %></td>
     <td><%= post.user.handle %></td>
-    <td><%= link_to post.item, post_path(post.id) %></td>
+    <td><%= pluralize(comment_count, "comment") unless comment_count == nil %></td>
   </tr>
-<% end %>
+<%- end -%>
+</table>
+<div class="subhead">Discussion threads</div>
+<table class="threads">
+  <caption><%= link_to "Start a discussion thread", new_comment_path %></caption>
+  <tr>
+    <th id="title">Title</th>
+    <th id="user">User</th>
+    <th id="comments"></th>
+  </tr>
+<%- @threads.each do |thread| -%>
+  <tr>
+    <td><%= link_to (thread.title || "something"), comment_path(thread.commentable_id) %></td>
+    <td><%= Comment.where(comment_thread_id: thread.id, comment_id: nil).first.user.handle %></td>
+    <td><%= pluralize(thread.comment_count - 1, "comment") unless thread.comment_count == 1 %></td>
+  </tr>
+<%- end -%>
 </table>

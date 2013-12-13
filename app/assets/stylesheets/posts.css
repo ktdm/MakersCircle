@@ -1,20 +1,44 @@
+.subhead {
+  width: 70%;
+  text-align: left;
+  margin: .8em auto;
+  font-size: 18pt;
+  font-family: sans-serif;
+  color: #000;
+  font-weight: bold;
+}
+
 table {
   border-collapse: collapse
 }
 
-table.posts {
-  margin: 2em 15%
+table.threads {
+  margin: 2em 15% 4em 15%
 }
 
 table.comments {
   width: 100%
 }
 
-td {
+th {
+  text-align: left
+}
+
+th#title {
+  width: 24em
+}
+th#user {
+  width: 12em
+}
+th#comments {
+  width: 12em
+}
+
+th, td {
   padding: .5em 1em
 }
 
-.posts > caption {
+.threads > caption {
   caption-side: bottom;
   text-align: left;
   margin-top: 1.5em
@@ -62,11 +86,7 @@ textarea {
   font-size: 12pt;
   padding: .3em
 }
-/*
-form > p {
-  margin: 2em 0
-}
-*/
+
 select {
   margin-left: .5em
 }

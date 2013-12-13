@@ -1,20 +1,12 @@
-<div class="title">A post</div>
+<div class="title">A discussion thread</div>
 <div class="show">
   <p>
-    <strong>User name:</strong>
-    <%= session[:user_handle] %>
-  </p>
-  <p>
     <strong>Title:</strong>
-    <%= @post.comment_threads[0].title %>
+    <%= @thread.title %>
   </p>
   <p>
-    <strong>Post:</strong>
-    <%= link_to @post.item, @post.item if @post.kind == "project" %>
-  </p>
-  <p>
-    <strong>Post kind:</strong>
-    <%= @post.kind %>
+    <strong>Body:</strong>
+    <%= @comments.shift.body %>
   </p>
   <p>
     <%= link_to "Back to all the posts", posts_path %>
@@ -26,9 +18,9 @@
 <%-   end -%>
 <table class="comments">
   <caption>
-   <div>Append a comment</div>
-   <%= f.text_area :body %>
-   <%= f.submit "Discuss" %>
+    <div>Append a comment</div>
+    <%= f.text_area :body %>
+    <%= f.submit "Discuss" %>
   </caption> 
 <%-   @comments.each do |comment| -%>
   <tr>
