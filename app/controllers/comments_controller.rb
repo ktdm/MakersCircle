@@ -1,18 +1,17 @@
 class CommentsController < ApplicationController
 
   def show
-    @thread = Comment.find(params[:id]).comment_threads.first
-    @comments = @thread.comments.order(id: :asc)
-#    if comment.post_id.nil? and comment.comment_id.nil?
-#      comment.comments = Comment.find_all_by_commen
-#    else
-#      render :404
-#    end
+    comment = Comment.find(params[:id])
+    if comment.comment_threads.empty?
+      thread = CommentThread.find comment.comment_thread_id
+      redirect_to self.send(:"#{thread.commentable_type.downcase}_path", thread.commentable_id)
+    else
+      @comments = comment.comment_threads.first.comments.order(id: :asc)
+    end
   end
 
   def create
-    comment = Comment.new(comment_params)
-    comment.save
+    comment = Comment.create! comment_params
     thread = comment_thread_params[:id] ?
       CommentThread.find(comment_thread_params[:id]) :
       CommentThread.create!({ commentable_type: "Comment", commentable_id: comment.id }.merge comment_thread_params)
@@ -24,7 +23,7 @@ class CommentsController < ApplicationController
     end
     comment.user_id = session[:login]
     comment.save
-    redirect_to ( comment_thread_params[:id] ? :back : comment_path(comment.id))
+    redirect_to ( comment_thread_params[:id] ? :back : comment_path(comment.id) )
   end
 
   def new # TODO: move most of these to a comment_threads_controller

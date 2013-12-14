@@ -13,9 +13,6 @@
 
 ActiveRecord::Schema.define(version: 20131213070829) do
 
-  # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
-
   create_table "comment_threads", force: true do |t|
     t.string  "title"
     t.integer "comment_count"
@@ -32,9 +29,9 @@ ActiveRecord::Schema.define(version: 20131213070829) do
     t.integer  "comment_thread_id"
   end
 
-  add_index "comments", ["comment_id"], name: "index_comments_on_comment_id", using: :btree
-  add_index "comments", ["comment_thread_id"], name: "index_comments_on_comment_thread_id", using: :btree
-  add_index "comments", ["user_id"], name: "index_comments_on_user_id", using: :btree
+  add_index "comments", ["comment_id"], name: "index_comments_on_comment_id"
+  add_index "comments", ["comment_thread_id"], name: "index_comments_on_comment_thread_id"
+  add_index "comments", ["user_id"], name: "index_comments_on_user_id"
 
   create_table "events", force: true do |t|
     t.text     "details"
@@ -52,7 +49,7 @@ ActiveRecord::Schema.define(version: 20131213070829) do
     t.datetime "updated_at"
   end
 
-  add_index "posts", ["user_id"], name: "index_posts_on_user_id", using: :btree
+  add_index "posts", ["user_id"], name: "index_posts_on_user_id"
 
   create_table "users", force: true do |t|
     t.string   "handle"

@@ -1,0 +1,50 @@
+<div class="title">An event</div>
+<div class="show">
+  <p>
+    <strong>Organiser:</strong>
+    <%= @event.users.empty? ? "nobody" : User.find(@event.users.first).handle %>
+  </p>
+  <p>
+    <strong>Title:</strong>
+    <%= @event.comment_threads.first.title %>
+  </p>
+  <p>
+    <strong>Time:</strong>
+    <%= @event.time.to_formatted_s(:long) %>
+  </p>
+  <p>
+    <strong>Details:</strong>
+    <%= @event.details %>
+  </p>
+<%= form_for :event, url: @event, method: :patch, html: {class: "attendance"} do |f| %>
+<%-   users = User.find(@event.users) -%>
+  <p>
+    <strong>Members attending:</strong>
+    <%= users.map(&:handle).join(", ") %>
+    <%= f.submit (users.map(&:id).include?(session[:login]) ? "Remove self" : "Add self") %>
+  </p>
+<%- end -%>
+  <p>
+    <%= link_to "Back to all the posts", posts_path %>
+  </p>
+</div>
+<%= form_for :comment, url: comments_path do |f| %>
+<%=   fields_for :comment_thread do |t| %>
+<%=     t.hidden_field :id, value: @event.comment_threads.first.id %>
+<%-   end -%>
+<table class="comments">
+  <caption>
+   <div>Append a comment</div>
+   <%= f.text_area :body %>
+   <%= f.submit "Discuss" %>
+  </caption> 
+<%-   @event.comment_threads.first.comments.each do |comment| -%>
+  <tr>
+    <td class="commenter"><%= link_to comment.user.handle, user_path(comment.user_id) %></td>
+    <td class="comment"><%= comment.body %>
+      <div class="timestamp"><%= comment.created_at.to_formatted_s(:long) %></div>
+    </td>
+  </tr>
+<%-   end -%>
+</table>
+<%- end -%>

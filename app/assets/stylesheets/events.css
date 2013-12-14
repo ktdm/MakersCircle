@@ -1,0 +1,8 @@
+.attendance {
+  width: auto;
+  text-indent: 3em
+}
+
+.attendance > * {
+  display: inline
+}

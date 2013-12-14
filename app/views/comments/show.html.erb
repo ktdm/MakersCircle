@@ -2,11 +2,11 @@
 <div class="show">
   <p>
     <strong>Title:</strong>
-    <%= @thread.title %>
+    <%= @comments.first.comment_threads.first.title %>
   </p>
   <p>
     <strong>Body:</strong>
-    <%= @comments.shift.body %>
+    <%= @comments.first.body %>
   </p>
   <p>
     <%= link_to "Back to all the posts", posts_path %>
@@ -14,7 +14,7 @@
 </div>
 <%= form_for :comment, url: comments_path do |f| %>
 <%=   fields_for :comment_thread do |t| %>
-<%=     t.hidden_field :id, value: @thread.id %>
+<%=     t.hidden_field :id, value: @comments.first.comment_threads.first.id %>
 <%-   end -%>
 <table class="comments">
   <caption>
@@ -22,7 +22,7 @@
     <%= f.text_area :body %>
     <%= f.submit "Discuss" %>
   </caption> 
-<%-   @comments.each do |comment| -%>
+<%-   @comments.drop(1).each do |comment| -%>
   <tr>
     <td class="commenter"><%= link_to comment.user.handle, user_path(comment.user_id) %></td>
     <td class="comment"><%= comment.body %>

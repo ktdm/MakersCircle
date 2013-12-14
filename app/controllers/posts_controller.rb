@@ -1,12 +1,13 @@
 class PostsController < ApplicationController
   before_action only: [:new, :create] do |ctr|
-    redirect_to ( session.delete(:return_to) || :root ) unless allow_create
+    redirect_to ( session.delete(:return_to) || root_path ) unless allow :post
   end
 
   def index
     @posts = Post.all
-    @allow_create = allow_create
+    @allow = [:post, :event].inject ({}) {|memo, obj| memo.merge obj.to_sym => allow(obj) }
     @threads = CommentThread.where(commentable_type: "Comment")
+    @events = Event.order(time: :asc).all
   end
 
   def new
@@ -23,8 +24,7 @@ class PostsController < ApplicationController
 
   def show
     @post = Post.find params[:id]
-    @thread = @post.comment_threads.first
-    @comments = @thread.comments.order(id: :asc)
+    @comments = @post.comment_threads.first.comments.order(id: :asc)
   end
 
   private
@@ -36,8 +36,12 @@ class PostsController < ApplicationController
       params.require(:comment_thread).permit(:title)
     end
 
-    def allow_create
-      Post.where(user_id: session[:login]).count < 10
+    def allow thread # if I need it
+      if thread == :post
+        Post.where(user_id: session[:login]).count < 10
+      elsif thread == :event
+        true
+      end
     end
 
 end

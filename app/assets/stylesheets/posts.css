@@ -24,14 +24,17 @@ th {
   text-align: left
 }
 
-th#title {
-  width: 24em
+th.thread_title {
+  width: 18em
 }
-th#user {
-  width: 12em
+th.user {
+  width: 8em
 }
-th#comments {
-  width: 12em
+th.time {
+  width: 14em
+}
+th.data {
+  width: 17em
 }
 
 th, td {

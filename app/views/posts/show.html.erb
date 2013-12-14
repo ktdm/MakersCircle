@@ -6,7 +6,7 @@
   </p>
   <p>
     <strong>Title:</strong>
-    <%= @post.comment_threads[0].title %>
+    <%= @post.comment_threads.first.title %>
   </p>
   <p>
     <strong>Post:</strong>
@@ -22,7 +22,7 @@
 </div>
 <%= form_for :comment, url: comments_path do |f| %>
 <%=   fields_for :comment_thread do |t| %>
-<%=     t.hidden_field :id, value: @thread.id %>
+<%=     t.hidden_field :id, value: @post.comment_threads.first.id %>
 <%-   end -%>
 <table class="comments">
   <caption>
