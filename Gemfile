@@ -1,7 +1,6 @@
 source 'https://rubygems.org'
 
 ruby '2.0.0'
-
 gem 'rails', '4.0.1'
 
 group :development do
@@ -12,6 +11,7 @@ group :production do
 end
 
 gem 'thin'
+gem 'redcarpet'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'

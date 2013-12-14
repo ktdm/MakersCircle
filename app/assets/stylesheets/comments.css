@@ -1,0 +1,47 @@
+.markdown_tip {
+  border-radius: 5px;
+  float: right;
+  background-color: #f4f4f4;
+  padding: .5em .8em;
+  position: relative;
+  height: 2em;
+  margin-bottom: .5em
+}
+
+.toggle_tip {
+  font-weight: bold;
+  font-family: sans-serif;
+  cursor: pointer;
+  font-size: 9pt;
+  position: relative;
+  text-align: right
+}
+
+.tip_text {
+  display: none;
+  margin-top: .3em;
+  position: relative;
+}
+
+.show_tip {
+  width: 400px
+}
+
+.show_tip > .tip_text {
+  display: block;
+  right: 0;
+  top: 1.5em;
+  position: absolute;
+  background-color: #f4f4f4;
+  padding: .5em .8em;
+  width: 400px;
+  text-align: right;
+  border-radius: 0 0 5px 5px
+}
+
+.show_tip p, .comment p {
+  margin: .3em;
+  text-indent: 0;
+  line-height: 1.4em;
+  font-size: 10pt;
+}

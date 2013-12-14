@@ -27,13 +27,14 @@
 <table class="comments">
   <caption>
    <div>Append a comment</div>
+   <%= render "comments/markdown_tip" %>
    <%= f.text_area :body %>
    <%= f.submit "Discuss" %>
   </caption> 
 <%-   @comments.each do |comment| -%>
   <tr>
     <td class="commenter"><%= link_to comment.user.handle, user_path(comment.user_id) %></td>
-    <td class="comment"><%= comment.body %>
+    <td class="comment"><%= markdown comment.body %>
       <div class="timestamp"><%= comment.created_at.to_formatted_s(:long) %></div>
     </td>
   </tr>

@@ -1,14 +1,11 @@
 <div class="title">Post something</div>
 <%= form_for :post, url: posts_path do |f| %>
-  <p>
-    <%= f.label session[:user_handle] %><br>
-  </p>
-<%= fields_for :comment_thread do |t| %>
+<%=   fields_for :comment_thread do |t| %>
   <p>
     <%= t.label :title %><br>
     <%= t.text_field :title %>
   </p>
-<%- end -%>
+<%-   end -%>
   <p>
     <%= f.label :item %><br>
     <%= f.text_area :item %>

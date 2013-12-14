@@ -50,6 +50,10 @@ caption > * {
   margin: .5em 0
 }
 
+caption > :first-child {
+  display: inline-block
+}
+
 .comments > caption {
   caption-side: top;
   text-align: left;
@@ -84,7 +88,7 @@ form {
 
 textarea {
   width: 100%;
-  height: 5em;
+  height: 10em;
   resize: vertical;
   font-size: 12pt;
   padding: .3em

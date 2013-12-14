@@ -25,7 +25,7 @@
   </p>
 <% end %>
 <% else %>
-<%= link_to 'logout', logout_path, class: "login" %>
+<%= link_to "logout from #{session[:user_handle]}", logout_path, class: "login" %>
 <% end %>
 <% end %>
 

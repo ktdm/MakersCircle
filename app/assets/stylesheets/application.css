@@ -20,11 +20,12 @@
   padding: .5em;
   width: auto;
   margin: 0;
-  border-radius: 5px
+  border-radius: 5px;
+  font-size: 10pt
 }
 
 .login > p {
-  margin: 0
+  margin: 0;
 }
 
 .title {
@@ -33,4 +34,15 @@
   font-family: sans-serif;
   text-align: center;
   color: #000
+}
+
+input[type=text], input[type=password] {
+  padding: .3em
+}
+
+select {
+  padding: .3em 0 .3em .8em
+}
+option {
+  margin: .3em
 }
