@@ -8,6 +8,47 @@
   font-weight: bold;
 }
 
+.head_title {
+  font-size: 24pt;
+  text-align: justify
+}
+.head_title > a {
+  text-decoration: none
+}
+
+form .head_rename {
+  vertical-align: top;
+  font-size: 16pt;
+  padding: 0.1em
+}
+
+.head_subhead {
+  font-size: 10pt
+}
+
+.action {
+  cursor: pointer
+}
+.action:hover {
+  text-decoration: underline
+}
+
+.head_remove {
+  margin-top: 1em;
+  display: inline-block
+}
+.head_remove:hover > input {
+  display: inline !important;
+  margin: -.5em 0
+}
+
+.back {
+  margin: 1em 0
+}
+.back > a {
+  text-decoration: none
+}
+
 table {
   border-collapse: collapse
 }
@@ -37,7 +78,8 @@ th.data {
   width: 17em
 }
 
-th, td {
+th,
+td {
   padding: .5em 1em
 }
 
@@ -56,11 +98,11 @@ caption > :first-child {
 
 .comments > caption {
   caption-side: top;
-  text-align: left;
-  margin: 1.5em 0
+  text-align: left
 }
 
-.commenter, .comment {
+.commenter,
+.comment {
   line-height: 1.5em;
   border: 8px solid white
 }
@@ -78,12 +120,13 @@ caption > :first-child {
   color: #666;
   font-style: italic;
   font-size: 10pt;
-  float: right
+  float: right;
+  margin-top: .5em
 }
 
-form {
+form > .comments {
   width: 70%;
-  margin: 2em auto
+  margin: 0 auto 4em auto
 }
 
 textarea {

@@ -13,18 +13,20 @@ class EventsController < ApplicationController
   end
 
   def show
-    @event = Event.find params[:id]
-    @comments = @event.comment_threads.first.comments.order(id: :asc)
+    @event = Event.includes(:comment_threads).find params[:id]
+    @comments = @event.comment_threads.first.comments.includes(:user).order(id: :asc)
   end
 
   def update
     @event = Event.find params[:id]
-    case params[:commit]
-      when "Add self" then @event.users << session[:login]
-      when "Remove self" then @event.users.delete(session[:login])
+    @event.update! event_params rescue 0
+    @event.comment_threads.first.update! comment_thread_params rescue 0
+    if ["Add self", "Remove self"].include? params[:commit]
+      @event.users << session[:login] if params[:commit] == "Add self"
+      @event.users.delete(session[:login]) if params[:commit] == "Remove self"
+      @event.save
     end
-    @event.save
-    redirect_to event_path(params[:id])
+    redirect_to :back
   end
 
   private

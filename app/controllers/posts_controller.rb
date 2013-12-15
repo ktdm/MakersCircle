@@ -23,8 +23,19 @@ class PostsController < ApplicationController
   end
 
   def show
+    @post = Post.includes(:comment_threads).find params[:id]
+    @comments = @post.comment_threads.first.comments.includes(:user).order(id: :asc)
+  end
+
+  def update
     @post = Post.find params[:id]
-    @comments = @post.comment_threads.first.comments.order(id: :asc)
+    @post.update! post_params rescue 0
+    @post.comment_threads.first.update! comment_thread_params rescue 0
+    redirect_to :back
+  end
+
+  def destroy
+        
   end
 
   private

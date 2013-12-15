@@ -1,6 +1,6 @@
-form, .show {
+.show {
   width: 70%;
-  margin: 2em auto
+  margin: 2em auto 0 auto
 }
 
 label {

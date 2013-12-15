@@ -1,3 +1,15 @@
+.head_body {
+  margin: 1em 0;
+  padding: 1em;
+  text-indent: 3em;
+  background-color: #eee;
+  overflow: auto
+}
+
+.head_body_edit > textarea {
+  margin: 1em 0
+}
+
 .markdown_tip {
   border-radius: 5px;
   float: right;
@@ -39,9 +51,13 @@
   border-radius: 0 0 5px 5px
 }
 
-.show_tip p, .comment p {
+.show_tip p, .comment p, .head_body p {
   margin: .3em;
   text-indent: 0;
   line-height: 1.4em;
   font-size: 10pt;
+}
+
+.comment p:last-of-type, .head_body p:last-of-type {
+  display: inline-block
 }

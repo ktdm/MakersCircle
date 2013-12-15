@@ -1,12 +1,12 @@
 class CommentsController < ApplicationController
 
   def show
-    comment = Comment.find(params[:id])
-    if comment.comment_threads.empty?
-      thread = CommentThread.find comment.comment_thread_id
+    @original_comment = Comment.includes(:comment_threads, :user).find(params[:id])
+    if @original_comment.comment_threads.empty?
+      thread = CommentThread.find @original_comment.comment_thread_id
       redirect_to self.send(:"#{thread.commentable_type.downcase}_path", thread.commentable_id)
     else
-      @comments = comment.comment_threads.first.comments.order(id: :asc)
+      @comments = @original_comment.comment_threads.first.comments.includes(:user).order(id: :asc)
     end
   end
 
@@ -28,6 +28,16 @@ class CommentsController < ApplicationController
 
   def new # TODO: move most of these to a comment_threads_controller
     @comment = Comment.new
+  end
+
+  def update
+    @comment = Comment.find params[:id]
+    @comment.update! comment_params
+    @comment.comment_threads.first.update! comment_thread_params
+    redirect_to :back
+  end
+
+  def destroy
   end
 
   private

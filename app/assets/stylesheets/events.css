@@ -1,8 +1,11 @@
-.attendance {
-  width: auto;
-  text-indent: 3em
+.head_body > p {
+  font-size: 12pt
 }
 
-.attendance > * {
-  display: inline
+.head_attendees {
+  font-size: 10pt
+}
+
+.head_attendees > input[type=submit] {
+  margin: -.6em 0
 }

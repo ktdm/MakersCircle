@@ -6,8 +6,8 @@ MakersCircle::Application.routes.draw do
   get 'ping', to: 'home#ping'
 
   resources :users, only: [:new, :create, :show]
-  resources :posts, only: [:index, :new, :create, :show]
-  resources :comments, only: [:new, :create, :show]
+  resources :posts, except: :edit
+  resources :comments, except: [:index, :edit]
   resources :events, only: [:new, :create, :show, :update]
 
 end

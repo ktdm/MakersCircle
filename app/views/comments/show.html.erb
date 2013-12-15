@@ -1,20 +1,40 @@
 <div class="title">A discussion thread</div>
+<%- if @original_comment.user.id == session[:login] -%>
+<%=   form_for :comment, url: @original_comment, method: :patch, html: {class: :show} do |f| %>
+  <div class="head_title" data-title="<%= @original_comment.comment_threads.first.title %>">
+    <span class="hide"><%= @original_comment.comment_threads.first.title %></span>
+    <span class="head_rename">
+<%=     fields_for :comment_thread do |t| %>
+<%=       t.text_field :title %>
+<%-     end -%>
+    </span>
+  </div>
+  <div class="head_subhead">
+    <%= "posted by " + @original_comment.user.handle %> - 
+    <span class="action edit">don't edit</span>
+  </div>
+  <div class="head_body hide" data-body="<%= @comments.first.body %>">
+    <%= markdown @original_comment.body %>
+    <div class="timestamp"><%= @original_comment.created_at.to_formatted_s(:long) %></div>
+  </div>
+  <div class="head_body_edit"><%= f.text_area :body %></div>
+<%=     f.submit "Update" %>
+  <div class="back"><%= link_to "Back to all the posts", posts_path %></div>
+<%-   end -%>
+<%- else -%>
 <div class="show">
-  <p>
-    <strong>Title:</strong>
-    <%= @comments.first.comment_threads.first.title %>
-  </p>
-  <p>
-    <strong>Body:</strong>
-    <%= @comments.first.body %>
-  </p>
-  <p>
-    <%= link_to "Back to all the posts", posts_path %>
-  </p>
+  <div class="head_title"><%= @original_comment.comment_threads.first.title %></div>
+  <div class="head_subhead"><%= "posted by " + @original_comment.user.handle %></div>
+  <div class="head_body">
+    <%= markdown @original_comment.body %>
+    <div class="timestamp"><%= @original_comment.created_at.to_formatted_s(:long) %></div>
+  </div>
+  <div class="back"><%= link_to "Back to all the posts", posts_path %></div>
 </div>
+<%- end -%>
 <%= form_for :comment, url: comments_path do |f| %>
 <%=   fields_for :comment_thread do |t| %>
-<%=     t.hidden_field :id, value: @comments.first.comment_threads.first.id %>
+<%=     t.hidden_field :id, value: @original_comment.comment_threads.first.id %>
 <%-   end -%>
 <table class="comments">
   <caption>
