@@ -58,6 +58,6 @@
   font-size: 10pt;
 }
 
-.comment p:last-of-type, .head_body p:last-of-type {
-  display: inline-block
+.comment > div > :nth-last-child(2), .head_body > :nth-last-child(2) {
+  display: inline
 }

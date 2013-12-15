@@ -33,7 +33,7 @@ class CommentsController < ApplicationController
   def update
     @comment = Comment.find params[:id]
     @comment.update! comment_params
-    @comment.comment_threads.first.update! comment_thread_params
+    @comment.comment_threads.first.update! comment_thread_params rescue 0
     redirect_to :back
   end
 

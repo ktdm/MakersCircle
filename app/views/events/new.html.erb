@@ -1,5 +1,5 @@
 <div class="title">Post an event</div>
-<%= form_for :event, url: events_path do |f| %>
+<%= form_for :event, url: events_path, html: {class: :new} do |f| %>
   <p>
 <%=   fields_for :comment_thread do |t| %>
 <%=     t.label :title %>

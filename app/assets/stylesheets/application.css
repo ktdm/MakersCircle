@@ -30,6 +30,9 @@
 .hide {
   display: none !important
 }
+.invisible {
+  visibility: hidden
+}
 
 input[type=text], input[type=password] {
   padding: .3em

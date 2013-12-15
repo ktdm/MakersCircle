@@ -5,7 +5,7 @@
     <span class="hide"><%= @original_comment.comment_threads.first.title %></span>
     <span class="head_rename">
 <%=     fields_for :comment_thread do |t| %>
-<%=       t.text_field :title %>
+      <%= t.text_field :title %>
 <%-     end -%>
     </span>
   </div>
@@ -13,12 +13,12 @@
     <%= "posted by " + @original_comment.user.handle %> - 
     <span class="action edit">don't edit</span>
   </div>
-  <div class="head_body hide" data-body="<%= @comments.first.body %>">
+  <div class="head_body hide" data-body="<%= @original_comment.body %>">
     <%= markdown @original_comment.body %>
     <div class="timestamp"><%= @original_comment.created_at.to_formatted_s(:long) %></div>
   </div>
   <div class="head_body_edit"><%= f.text_area :body %></div>
-<%=     f.submit "Update" %>
+  <%= f.submit "Update" %>
   <div class="back"><%= link_to "Back to all the posts", posts_path %></div>
 <%-   end -%>
 <%- else -%>
@@ -32,24 +32,40 @@
   <div class="back"><%= link_to "Back to all the posts", posts_path %></div>
 </div>
 <%- end -%>
-<%= form_for :comment, url: comments_path do |f| %>
+<%= form_for :comment, url: comments_path, method: :create do |f| %>
 <%=   fields_for :comment_thread do |t| %>
-<%=     t.hidden_field :id, value: @original_comment.comment_threads.first.id %>
+  <%= t.hidden_field :id, value: @original_comment.comment_threads.first.id %>
 <%-   end -%>
-<table class="comments">
-  <caption>
-    <div>Append a comment</div>
-    <%= render "comments/markdown_tip" %>
-    <%= f.text_area :body %>
-    <%= f.submit "Discuss" %>
-  </caption> 
-<%-   @comments.drop(1).each do |comment| -%>
-  <tr>
-    <td class="commenter"><%= link_to comment.user.handle, user_path(comment.user_id) %></td>
-    <td class="comment"><%= markdown comment.body %>
-      <div class="timestamp"><%= comment.created_at.to_formatted_s(:long) %></div>
-    </td>
-  </tr>
+  <%= f.hidden_field :body %>
+  <table class="comments">
+    <caption>
+     <div>Append a comment</div>
+     <%= render "comments/markdown_tip" %>
+     <textarea></textarea>
+     <%= f.submit "Discuss" %>
+    </caption> 
+<%-   @comments.drop(1).each do |comment|
+        show = comment.user.id == session[:login] -%>
+    <tr id="comment_<%= comment.id %>">
+      <td class="commenter">
+        <%= link_to comment.user.handle, user_path(comment.user_id) %>
+<%-     if show -%>
+        <span class="action edit">don't edit</span> - 
+        <span class="action remove">don't remove</span>
+        <span class="comment_remove">
+          <span>Are you <b>sure</b>?</span>
+          <%= f.submit "Remove", class: :invisible %>
+        </span>
+        <%= f.submit "Update" %>
+<%-     end -%>
+      </td>
+      <td class="comment<%= ' hide' if show %>" data-body="<%= comment.body %>">
+        <div><%= markdown comment.body %>
+          <div class="timestamp"><%= comment.created_at.to_formatted_s(:long) %></div>
+        </div>
+      </td>
+      <%- if show -%><td class="comment_edit"><textarea></textarea></td><%- end -%>
+    </tr>
 <%-   end -%>
-</table>
+  </table>
 <%- end -%>

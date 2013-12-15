@@ -33,13 +33,17 @@ form .head_rename {
   text-decoration: underline
 }
 
-.head_remove {
+.head_remove,
+.comment_remove {
   margin-top: 1em;
   display: inline-block
 }
 .head_remove:hover > input {
   display: inline !important;
   margin: -.5em 0
+}
+.comment_remove:hover > input {
+  visibility: visible
 }
 
 .back {
@@ -79,8 +83,14 @@ th.data {
 }
 
 th,
-td {
+td > div,
+.threads td {
   padding: .5em 1em
+}
+
+td {
+  vertical-align: top;
+  background-color: transparent
 }
 
 .threads > caption {
@@ -108,12 +118,18 @@ caption > :first-child {
 }
 
 .commenter {
-  width: 10em;
+  width: 12em;
   vertical-align: top;
+  font-size: 10pt
+}
+.commenter > a {
+  text-decoration: none;
+  display: block
 }
 
-.comment {
-  background-color: #eee
+.comment > div {
+  background-color: #eee;
+  overflow: auto
 }
 
 .timestamp {
@@ -124,7 +140,8 @@ caption > :first-child {
   margin-top: .5em
 }
 
-form > .comments {
+form > .comments,
+form.new {
   width: 70%;
   margin: 0 auto 4em auto
 }
@@ -134,7 +151,8 @@ textarea {
   height: 10em;
   resize: vertical;
   font-size: 12pt;
-  padding: .3em
+  padding: .3em;
+  display: inherit
 }
 
 select {
