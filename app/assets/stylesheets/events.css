@@ -9,3 +9,7 @@
 .head_attendees > input[type=submit] {
   margin: -.6em 0
 }
+
+.head_attendees > a {
+  text-decoration: none
+}

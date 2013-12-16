@@ -8,3 +8,11 @@ label {
   width: 8em;
   text-indent: 0
 }
+
+.head_prefs {
+  margin: .5em
+}
+.head_prefs th,
+.head_prefs td {
+  padding: .5em
+}

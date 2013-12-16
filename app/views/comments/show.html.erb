@@ -15,7 +15,7 @@
     </span>
   </div>
   <div class="head_subhead">
-    <%= "posted by " + @original_comment.user.handle %> - 
+    posted by <%= link_to @original_comment.user.handle, @original_comment.user %> - 
     <span class="action edit">don't edit</span> - 
     <span class="action remove">don't remove</span>
   </div>
@@ -58,7 +58,7 @@
         show = comment.user.id == session[:login] -%>
     <tr id="comment_<%= comment.id %>">
       <td class="commenter">
-        <%= link_to comment.user.handle, user_path(comment.user_id) %>
+        <%= link_to comment.user.handle, comment.user %>
 <%-     if show -%>
         <span class="action edit">don't edit</span> - 
         <span class="action remove">don't remove</span>

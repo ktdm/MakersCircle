@@ -16,7 +16,7 @@
     </div>
   </div>
   <div class="head_subhead">
-    <%= @post.kind + " by " + @post.user.handle %> - 
+    <%= @post.kind %> by <%= link_to @post.user.handle, @post.user %> - 
     <span class="action remove">don't remove</span> - 
     <span class="action rename">don't rename</span>
   </div>
@@ -28,7 +28,7 @@
 <%-   end -%>
 <%- else -%>
 <div class="show">
-  <div class="head_title"><%= link_to @post.comment_threads.first.title, @post.item if @post.kind == "project" %></div>
+  <div class="head_title"><%= link_to(@post.comment_threads.first.title, @post.item) if @post.kind == "project" %></div>
   <div class="head_subhead"><%= @post.kind + " by " + @post.user.handle %></div>
   <div class="back"><%= link_to "Back to all the posts", posts_path %></div>
 </div>
@@ -49,7 +49,7 @@
         show = comment.user.id == session[:login] -%>
     <tr id="comment_<%= comment.id %>">
       <td class="commenter">
-        <%= link_to comment.user.handle, user_path(comment.user_id) %>
+        <%= link_to comment.user.handle, comment.user %>
 <%-     if show -%>
         <span class="action edit">don't edit</span> - 
         <span class="action remove">don't remove</span>

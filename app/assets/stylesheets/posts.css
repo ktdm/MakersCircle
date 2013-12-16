@@ -26,6 +26,10 @@ form .head_rename {
   font-size: 10pt
 }
 
+.head_subhead > a {
+  text-decoration: none
+}
+
 .action {
   cursor: pointer
 }

@@ -15,12 +15,21 @@
 <%-       end -%>
     </span>
   </div>
-  <div class="head_time hide"><%= @event.time.to_formatted_s(:long) %></div>
+  <div class="head_time hide" data-time="<%=
+          [@event.time.year, @event.time.month, @event.time.day, sprintf('%02d', @event.time.hour), sprintf('%02d', @event.time.min)] * " "
+  %>"><%= @event.time.to_formatted_s(:long) %></div>
   <div class="head_time_edit">
-    <%= f.datetime_select :time %>
+<%=       f.datetime_select :time %>
   </div>
   <div class="head_subhead">
-    <%= "organised by " + (@event.users.empty? ? "nobody" : User.find(@event.users.first).handle) %> - 
+    organised by <%=
+          if @event.users.empty?
+            "nobody"
+          else
+            organiser = User.find @event.users.first
+            link_to organiser.handle, organiser
+          end
+%> - 
     <span class="action edit">don't edit</span> - 
     <span class="action remove">don't remove</span>
   </div>
@@ -37,7 +46,15 @@
 <%-     else -%>
   <div class="head_title"><%= @event.comment_threads.first.title %></div>
   <div class="head_time"><%= @event.time.to_formatted_s(:long) %></div>
-  <div class="head_subhead">organised by <%= @event.users.empty? ? "nobody" : User.find(@event.users.first).handle %></div>
+  <div class="head_subhead">
+    organised by <%=
+          if @event.users.empty?
+            "nobody"
+          else
+            organiser = User.find @event.users.first
+            link_to organiser.handle, organiser
+          end
+%></div>
   <div class="head_body">
     <%= markdown @event.details %>
     <div class="timestamp"><%= @event.created_at.to_formatted_s(:long) %></div>
@@ -45,7 +62,7 @@
 <%-     end -%>
   <div class="head_attendees">
     attending: 
-    <%= User.find(@event.users).map(&:handle) * ", " %>
+    <%= (User.find(@event.users).map{|u| link_to u.handle, u } * ", ").html_safe %>
     <%= f.submit (@event.users.include?(session[:login]) ? "Remove self" : "Add self") %>
   </div>
   <div class="back"><%= link_to "Back to all the posts", posts_path %></div>
@@ -67,7 +84,7 @@
         show = comment.user.id == session[:login] -%>
     <tr id="comment_<%= comment.id %>">
       <td class="commenter">
-        <%= link_to comment.user.handle, user_path(comment.user_id) %>
+        <%= link_to comment.user.handle, comment.user %>
 <%-     if show -%>
         <span class="action edit">don't edit</span> - 
         <span class="action remove">don't remove</span>

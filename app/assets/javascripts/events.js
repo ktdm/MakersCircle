@@ -12,8 +12,10 @@ $(document).ready(function () {
     $(".head_body_edit").toggleClass("hide");
     $(".head_time_edit").toggleClass("hide");
     $(".head_body_edit + input[type=submit]").toggleClass("hide");
-    $(".head_rename > input[type=text]").val($(".head_title").attr("data-title"))
-    $(".head_body_edit > textarea").val($(".head_body").attr("data-body"))
+    $(".head_rename > input[type=text]").val($(".head_title").attr("data-title"));
+    $(".head_body_edit > textarea").val($(".head_body").attr("data-body"));
+    var dt = $(".head_time").attr("data-time").split(" ");
+    $(".head_time_edit > select").each(function (x) { $(this).find("option[value=" + dt[x] + "]").prop("selected", true) });
     dont.call(this, "edit")
   });
 

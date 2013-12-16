@@ -1,18 +1,58 @@
+<div class="title">A member</div>
+<%- if @user.id == session[:login] -%>
+<%=   form_for :user, url: @user, method: :patch, html: {class: :show} do |f| %>
+  <div class="head_title"><%= @user.handle%></div>
+  <div class="head_email"><%= @user.email %></div>
+  <div class="head_subhead">
+    <%= "joined on " + @user.created_at.to_date.to_formatted_s(:long_ordinal) %> - 
+    <span class="action edit">don't edit</span>
+    <!--span class="action deregister">don't deregister</span-->
+  </div>
+  <div class="head_body hide" data-body="<%= @user.intro %>"><%= markdown @user.intro %></div>
+  <div class="head_body_edit"><%= f.text_area :intro %></div>
+  <%= f.submit "Update" %>
+<%=     f.fields_for :prefs do |p| %>
+  <table class="head_prefs">
+    <tr>
+      <th>Prefs</th>
+    </tr>
+<%-       @prefs_meta.each do |key, ary| %>
+    <tr>
+      <td><%= key %>: </td>
+      <td>
+<%-         ary.each do |opt| -%>
+        <%= p.radio_button(key.to_sym, opt, (@user.prefs[key] == opt ? {checked: "checked"} : {})) + " #{opt} " %>
+<%-         end -%>
+      </td>
+    </tr>
+<%-       end -%>
+  </table>
+<%-     end -%>
+  <%= link_to "To the posts page", posts_path %>
+<%-   end -%>
+<%- else -%>
 <div class="show">
-  <p>
-    <strong>User name:</strong>
-    <%= @user.handle%>
-  </p>
-
-  <p>
-    <strong>Email:</strong>
-    <%= @user.email %>
-  </p>
-
-  <p>
-    <strong>User type:</strong>
-    <%= @user.role %>
-  </p>
-
+  <div class="head_title"><%= @user.handle%></div>
+<%-   if @user.prefs["email"] == "shown" -%>
+  <div class="head_email"><%= @user.email %></div>
+<%-   end -%>
+  <div class="head_subhead"><%= "joined on " + @user.created_at.to_date.to_formatted_s(:long_ordinal) %></div>
+  <div class="head_body"><%= @user.intro %></div>
   <%= link_to "To the posts page", posts_path %>
 </div>
+<%- end -%>
+<table class="threads">
+<%- unless @posts.empty? -%>
+  <tr>
+    <th class="thread_title">Post</th>
+    <th class="data"></th>
+  </tr>
+<%- end
+    @posts.each do |post|
+      comment_count = post.comment_threads.first.comment_count -%>
+  <tr>
+    <td><%= link_to (post.comment_threads.first.title || "something"), post_path(post.id) %></td>
+    <td><%= pluralize(comment_count, "comment") unless comment_count.nil? %></td>
+  </tr>
+<%- end -%>
+</table>

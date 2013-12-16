@@ -5,7 +5,7 @@ MakersCircle::Application.routes.draw do
   get 'logout', to: 'home#logout'
   get 'ping', to: 'home#ping'
 
-  resources :users, only: [:new, :create, :show]
+  resources :users, except: [:index, :edit, :destroy]
   resources :posts, except: :edit
   resources :comments, except: [:index, :edit]
   resources :events, except: [:index, :edit]
