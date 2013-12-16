@@ -15,6 +15,15 @@ $(document).ready(function () {
     dont.call(this, "edit")
   });
 
+  $(".show .remove").click(function () {
+    $(".head_remove").toggleClass("hide");
+    dont.call(this, "remove")
+  });
+
+  $(".head_remove > input[type=submit]").click(function () {
+    this.form._method.value = "delete"
+  });
+
   $(".comments .edit").click(function () {
     c = $(this).closest("tr");
     c.find(".comment").toggleClass("hide");
@@ -24,7 +33,7 @@ $(document).ready(function () {
     dont.call(this, "edit")
   });
 
-  $("input[value=Discuss]").click(function() {
+  $(".comments input[value=Discuss]").click(function() {
     this.form["comment[body]"].value = $(this).closest("caption").find("textarea").val()
   });
 

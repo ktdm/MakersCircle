@@ -1,5 +1,10 @@
 <div class="title">A post</div>
-<%- if @post.user.id == session[:login] -%>
+<%- if @post.user.nil? -%>
+<div class="show">
+  <div class="head_removed">[ removed ]</div>
+  <div class="back"><%= link_to "Back to all the posts", posts_path %></div>
+</div>
+<%- elsif @post.user.id == session[:login] -%>
 <%= form_for :post, url: @post, method: :patch, html: {class: :show} do |f| %>
   <div class="head_title" data-title="<%= @post.comment_threads.first.title %>">
     <%= link_to @post.comment_threads.first.title, @post.item, class: :hide if @post.kind == "project" %>

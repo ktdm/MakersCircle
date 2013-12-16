@@ -1,5 +1,10 @@
 <div class="title">A discussion thread</div>
-<%- if @original_comment.user.id == session[:login] -%>
+<%- if @original_comment.user.nil? -%>
+<div class="show">
+  <div class="head_removed">[ removed ]</div>
+  <div class="back"><%= link_to "Back to all the posts", posts_path %></div>
+</div>
+<%- elsif @original_comment.user.id == session[:login] -%>
 <%=   form_for :comment, url: @original_comment, method: :patch, html: {class: :show} do |f| %>
   <div class="head_title" data-title="<%= @original_comment.comment_threads.first.title %>">
     <span class="hide"><%= @original_comment.comment_threads.first.title %></span>
@@ -11,7 +16,12 @@
   </div>
   <div class="head_subhead">
     <%= "posted by " + @original_comment.user.handle %> - 
-    <span class="action edit">don't edit</span>
+    <span class="action edit">don't edit</span> - 
+    <span class="action remove">don't remove</span>
+  </div>
+  <div class="head_remove">
+    <span>Are you <b>sure</b>?</span>
+    <%= f.submit "Remove", class: :hide %>
   </div>
   <div class="head_body hide" data-body="<%= @original_comment.body %>">
     <%= markdown @original_comment.body %>

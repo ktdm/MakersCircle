@@ -7,8 +7,10 @@ $(document).ready(function () {
   $(".show .edit").click(function () {
     $(".head_title > span:first-child").toggleClass("hide");
     $(".head_body").toggleClass("hide");
+    $(".head_time").toggleClass("hide");
     $(".head_rename").toggleClass("hide");
     $(".head_body_edit").toggleClass("hide");
+    $(".head_time_edit").toggleClass("hide");
     $(".head_body_edit + input[type=submit]").toggleClass("hide");
     $(".head_rename > input[type=text]").val($(".head_title").attr("data-title"))
     $(".head_body_edit > textarea").val($(".head_body").attr("data-body"))

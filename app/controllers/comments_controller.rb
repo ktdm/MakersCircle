@@ -1,7 +1,11 @@
 class CommentsController < ApplicationController
 
   def show
-    @original_comment = Comment.includes(:comment_threads, :user).find(params[:id])
+    @original_comment = begin
+      Comment.includes(:comment_threads, :user).find(params[:id])
+    rescue
+      Comment.new(id: params[:id])
+    end
     if @original_comment.comment_threads.empty?
       thread = CommentThread.find @original_comment.comment_thread_id
       redirect_to self.send(:"#{thread.commentable_type.downcase}_path", thread.commentable_id)
@@ -38,6 +42,9 @@ class CommentsController < ApplicationController
   end
 
   def destroy
+    comment = Comment.find params[:id]
+    comment.destroy
+    redirect_to comment_path(params[:id])
   end
 
   private

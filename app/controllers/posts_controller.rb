@@ -4,10 +4,10 @@ class PostsController < ApplicationController
   end
 
   def index
-    @posts = Post.all
+    @posts = Post.where.not id: nil # TODO: offset paginate
     @allow = [:post, :event].inject ({}) {|memo, obj| memo.merge obj.to_sym => allow(obj) }
-    @threads = CommentThread.where(commentable_type: "Comment")
-    @events = Event.order(time: :asc).all
+    @threads = CommentThread.where(commentable_type: "Comment").joins(:comments).uniq
+    @events = Event.order(time: :asc).where.not id: nil
   end
 
   def new
@@ -23,7 +23,11 @@ class PostsController < ApplicationController
   end
 
   def show
-    @post = Post.includes(:comment_threads).find params[:id]
+    @post = begin
+      Post.includes(:comment_threads).find params[:id]
+    rescue
+      Post.new(id: params[:id])
+    end
     @comments = @post.comment_threads.first.comments.includes(:user).order(id: :asc)
   end
 
@@ -35,7 +39,9 @@ class PostsController < ApplicationController
   end
 
   def destroy
-        
+    post = Post.find params[:id]
+    post.destroy
+    redirect_to post_path(params[:id])
   end
 
   private

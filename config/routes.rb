@@ -8,6 +8,6 @@ MakersCircle::Application.routes.draw do
   resources :users, only: [:new, :create, :show]
   resources :posts, except: :edit
   resources :comments, except: [:index, :edit]
-  resources :events, only: [:new, :create, :show, :update]
+  resources :events, except: [:index, :edit]
 
 end

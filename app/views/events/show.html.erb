@@ -1,15 +1,24 @@
 <div class="title">An event</div>
-<%= form_for :event, url: @event, method: :patch, html: {class: :show} do |f| %>
-<%-   if @event.users.first == session[:login] -%>
+<%- if @event.users.nil? -%>
+<div class="show">
+  <div class="head_removed">[ removed ]</div>
+  <div class="back"><%= link_to "Back to all the posts", posts_path %></div>
+</div>
+<%- else -%>
+<%=   form_for :event, url: @event, method: :patch, html: {class: :show} do |f| %>
+<%-     if @event.users.first == session[:login] -%>
   <div class="head_title" data-title="<%= @event.comment_threads.first.title %>">
     <span class="hide"><%= @event.comment_threads.first.title %></span>
     <span class="head_rename">
-<%=     fields_for :comment_thread do |t| %>
+<%=       fields_for :comment_thread do |t| %>
       <%= t.text_field :title %>
-<%-     end -%>
+<%-       end -%>
     </span>
   </div>
-  <div class="head_time"><%= @event.time.to_formatted_s(:long) %></div>
+  <div class="head_time hide"><%= @event.time.to_formatted_s(:long) %></div>
+  <div class="head_time_edit">
+    <%= f.datetime_select :time %>
+  </div>
   <div class="head_subhead">
     <%= "organised by " + (@event.users.empty? ? "nobody" : User.find(@event.users.first).handle) %> - 
     <span class="action edit">don't edit</span> - 
@@ -25,7 +34,7 @@
   </div>
   <div class="head_body_edit"><%= f.text_area :details %></div>
   <%= f.submit "Update" %>
-<%-   else -%>
+<%-     else -%>
   <div class="head_title"><%= @event.comment_threads.first.title %></div>
   <div class="head_time"><%= @event.time.to_formatted_s(:long) %></div>
   <div class="head_subhead">organised by <%= @event.users.empty? ? "nobody" : User.find(@event.users.first).handle %></div>
@@ -33,13 +42,14 @@
     <%= markdown @event.details %>
     <div class="timestamp"><%= @event.created_at.to_formatted_s(:long) %></div>
   </div>
-<%-   end -%>
+<%-     end -%>
   <div class="head_attendees">
     attending: 
     <%= User.find(@event.users).map(&:handle) * ", " %>
     <%= f.submit (@event.users.include?(session[:login]) ? "Remove self" : "Add self") %>
   </div>
   <div class="back"><%= link_to "Back to all the posts", posts_path %></div>
+<%-   end -%>
 <%- end -%>
 <%= form_for :comment, url: comments_path, method: :create do |f| %>
 <%=   fields_for :comment_thread do |t| %>

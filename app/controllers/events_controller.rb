@@ -13,7 +13,11 @@ class EventsController < ApplicationController
   end
 
   def show
-    @event = Event.includes(:comment_threads).find params[:id]
+    @event = begin
+      Event.includes(:comment_threads).find params[:id]
+    rescue
+      Event.new(id: params[:id])
+    end
     @comments = @event.comment_threads.first.comments.includes(:user).order(id: :asc)
   end
 
@@ -27,6 +31,12 @@ class EventsController < ApplicationController
       @event.save
     end
     redirect_to :back
+  end
+
+  def destroy
+    event = Event.find params[:id]
+    event.destroy
+    redirect_to event_path(params[:id])
   end
 
   private
