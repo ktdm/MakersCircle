@@ -28,7 +28,7 @@
 <%-       end -%>
   </table>
 <%-     end -%>
-  <%= link_to "To the posts page", posts_path %>
+  <%= link_to "To the posts page", root_path %>
 <%-   end -%>
 <%- else -%>
 <div class="show">
@@ -38,7 +38,7 @@
 <%-   end -%>
   <div class="head_subhead"><%= "joined on " + @user.created_at.to_date.to_formatted_s(:long_ordinal) %></div>
   <div class="head_body"><%= @user.intro %></div>
-  <%= link_to "To the posts page", posts_path %>
+  <%= link_to "To the posts page", root_path %>
 </div>
 <%- end -%>
 <table class="threads">

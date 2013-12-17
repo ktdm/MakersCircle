@@ -1,0 +1,22 @@
+<%- puts controller_name -%>
+<div class="subhead">Projects and Snippets</div>
+<table class="threads">
+  <caption><%=
+    controller_name == "posts" ? link_to("Back to all the things".gsub(" ", "&nbsp;").html_safe, root_path) : link_to("See all / post your own".gsub(" ", "&nbsp;").html_safe, posts_path)
+%></caption>
+<%- unless @posts.empty? -%>
+  <tr>
+    <th class="title">Title</th>
+    <th class="user">User</th>
+    <th class="data"></th>
+  </tr>
+<%- end
+    @posts.each do |post|
+      comment_count = post.comment_threads.first.comment_count -%>
+  <tr>
+    <td><%= link_to (post.comment_threads.first.title || "something"), post_path(post.id) %></td>
+    <td><%= link_to post.user.handle, post.user %></td>
+    <td><%= pluralize(comment_count, "comment") unless comment_count.nil? %></td>
+  </tr>
+<%- end -%>
+</table>

@@ -1,5 +1,9 @@
 class CommentsController < ApplicationController
 
+  def index
+    @comments = Comment.joins(:comment_threads).take(10)
+  end
+
   def show
     @original_comment = begin
       Comment.includes(:comment_threads, :user).find(params[:id])

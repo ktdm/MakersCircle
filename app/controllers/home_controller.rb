@@ -2,6 +2,11 @@ class HomeController < ApplicationController
   skip_before_action :require_login, :index
 
   def index
+    if session[:login]
+      @posts = Post.where.not id: nil # TODO: offset paginate
+      @comments = Comment.joins(:comment_threads)
+      @events = Event.order(time: :asc).where.not id: nil
+    end
   end
 
   def login
@@ -11,7 +16,7 @@ class HomeController < ApplicationController
     else
       flash[:notice] = "Not found."
     end
-    redirect_to posts_path
+    redirect_to root_path
   end
 
   def logout

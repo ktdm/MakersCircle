@@ -1,8 +1,9 @@
 class UsersController < ApplicationController
   skip_before_action :require_login, only: [:new, :create], unless: Proc.new{ session[:login].nil? }
+  skip_before_action :allow_creation
 
   def new
-    if User.count > 10
+    if User.count > 10 # REMEMBER limited to 10 users still!
       redirect_to :root
     else
       @user = User.new

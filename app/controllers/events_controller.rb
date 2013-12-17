@@ -1,7 +1,7 @@
 class EventsController < ApplicationController
 
-  def new
-    @event = Event.new
+  def index
+    @events = Event.take(10)
   end
 
   def create

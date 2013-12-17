@@ -1,25 +1,11 @@
 <div class="title">Makers' Circle</div>
-<div class="update">
-  <p>Good evening,</p>
-  <p>Another day, another update. Event posting is now functional, and markdown is available where indicated (click the markdown label for a basic run-down).</p>
-  <p>Tomorrow I will be rounding out the existing machinery by adding update and delete actions to everything, and then finally giving the CSS design a makeover. You can track the progress on github at <a href="http://github.com/ktdm/MakersCircle">MakersCircle</a>. As such, this will probably be the last time I blog to the front page.</p>
-  <p>Hopefully it will look nice enough for me to make a new call for members on reddit in a couple of days time!</p>
-  <p>Til then.</p>
+<%- if session[:login] -%>
+<%=   render partial: "posts/list", locals: {threads: @posts} %>
+<%=   render partial: "comments/list", locals: {threads: @comments} %>
+<%=   render partial: "events/list", locals: {threads: @events} %>
+<%- else -%>
+<div class="home">
+  <p>Now printing...</p>
+  <p><%= link_to "Register!", new_user_path %></p>
 </div>
-<hr />
-<div class="update">
-  <p>First of all, welcome to the all the new members who registered since yesterday. Looks like almost everyone who expressed interest is here now!</p>
-  <p>As you can see, I've added a general discussion section to the posts page. First order of business, when and where we will hold the first meet up :-)</p>
-  <p>Don't be shy to christen the page with your first posts, self introductions if you feel like it, and let me know exactly what you want out of this group.</p>
-  <p>See you in the discussions,</p>
-  <p>Aidan.</p>
-</div>
-<hr />
-<div class="hey_reddit">
-  <p>Hi r/brisbane this is u/nodefense. I've put this barebones site together this evening just to show you that I'm serious about making the group idea I posted about a thing. Feel free to register (don't use your go-to password please, for your own safety), and I'll continue adding to the site tonight and tomorrow. You can expect a comments and events section to be up tonight I think, and I'll put lipstick on it tomorrow.</p>
-  <p>Register <%= link_to "here", new_user_path %>, and then see people's projects <%= link_to "here", posts_path %>.</p>
-  <p>Welcome to the thing, and here's to making it a valuable resource for web people in Brisbane!</p>
-  <p>Cheers,</p>
-  <p>Me.</p>
-</div>
-
+<%- end -%>

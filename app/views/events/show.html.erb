@@ -2,7 +2,7 @@
 <%- if @event.users.nil? -%>
 <div class="show">
   <div class="head_removed">[ removed ]</div>
-  <div class="back"><%= link_to "Back to all the posts", posts_path %></div>
+  <div class="back"><%= link_to "Back to all the posts", root_path %></div>
 </div>
 <%- else -%>
 <%=   form_for :event, url: @event, method: :patch, html: {class: :show} do |f| %>
@@ -65,7 +65,7 @@
     <%= (User.find(@event.users).map{|u| link_to u.handle, u } * ", ").html_safe %>
     <%= f.submit (@event.users.include?(session[:login]) ? "Remove self" : "Add self") %>
   </div>
-  <div class="back"><%= link_to "Back to all the posts", posts_path %></div>
+  <div class="back"><%= link_to "Back to all the posts", root_path %></div>
 <%-   end -%>
 <%- end -%>
 <%= form_for :comment, url: comments_path, method: :create do |f| %>
@@ -73,35 +73,5 @@
   <%= t.hidden_field :id, value: @event.comment_threads.first.id %>
 <%-   end -%>
   <%= f.hidden_field :body %>
-  <table class="comments">
-    <caption>
-     <div>Append a comment</div>
-     <%= render "comments/markdown_tip" %>
-     <textarea></textarea>
-     <%= f.submit "Discuss" %>
-    </caption> 
-<%-   @event.comment_threads.first.comments.each do |comment|
-        show = comment.user.id == session[:login] -%>
-    <tr id="comment_<%= comment.id %>">
-      <td class="commenter">
-        <%= link_to comment.user.handle, comment.user %>
-<%-     if show -%>
-        <span class="action edit">don't edit</span> - 
-        <span class="action remove">don't remove</span>
-        <span class="comment_remove">
-          <span>Are you <b>sure</b>?</span>
-          <%= f.submit "Remove", class: :invisible %>
-        </span>
-        <%= f.submit "Update" %>
-<%-     end -%>
-      </td>
-      <td class="comment<%= ' hide' if show %>" data-body="<%= comment.body %>">
-        <div><%= markdown comment.body %>
-          <div class="timestamp"><%= comment.created_at.to_formatted_s(:long) %></div>
-        </div>
-      </td>
-      <%- if show -%><td class="comment_edit"><textarea></textarea></td><%- end -%>
-    </tr>
-<%-   end -%>
-  </table>
+<%=   render partial: "comments/thread", locals: {f: f} %>
 <%- end -%>

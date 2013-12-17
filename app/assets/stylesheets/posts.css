@@ -79,8 +79,11 @@ th {
   text-align: left
 }
 
-th.thread_title {
-  width: 18em
+th.title {
+  width: 18em;
+  font-size: inherit;
+  font-family: inherit;
+  text-align: inherit
 }
 th.user {
   width: 8em

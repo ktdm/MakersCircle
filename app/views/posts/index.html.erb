@@ -1,74 +1,21 @@
 <div class="title">All posts</div>
-<div class="subhead">Projects and Snippets</div>
-<table class="threads">
-  <caption><%= link_to "Post your thing".gsub(" ", "&nbsp;").html_safe, new_post_path if @allow[:post] %></caption>
-<%- unless @posts.empty? -%>
-  <tr>
-    <th class="thread_title">Title</th>
-    <th class="user">User</th>
-    <th class="data"></th>
-  </tr>
-<%- end
-    @posts.each do |post|
-      comment_count = post.comment_threads.first.comment_count -%>
-  <tr>
-    <td><%= link_to (post.comment_threads.first.title || "something"), post_path(post.id) %></td>
-    <td><%= link_to post.user.handle, post.user %></td>
-    <td><%= pluralize(comment_count, "comment") unless comment_count.nil? %></td>
-  </tr>
+<%= render partial: "posts/list", locals: {threads: @posts} %>
+<%- if controller.allow_create :post -%>
+<div class="subhead">Post your thing</div>
+<%=   form_for :post, url: posts_path, html: {class: :new} do |f| %>
+<%=     fields_for :comment_thread do |t| %>
+  <p>
+    <%= t.label :title, "title" %> <%= t.text_field :title %>
+  </p>
+<%-     end -%>
+  <p>
+    <%= f.label :item, "project URL" %> <%= f.text_field :item %>
+  </p>
+  <p>
+    <%= f.label :kind, "kind of post" %> <%= f.select :kind, options_for_select( ['project', 'snippet'], disabled: ['snippet'] ) %>
+  </p>
+  <p>
+    <%= f.submit %>
+  </p>
+<%-   end -%>
 <%- end -%>
-</table>
-<div class="subhead">Discussion threads</div>
-<table class="threads">
-  <caption><%= link_to "Start a discussion thread".gsub(" ", "&nbsp;").html_safe, new_comment_path %></caption>
-<%- unless @threads.empty? -%>
-  <tr>
-    <th class="thread_title">Title</th>
-    <th class="user">User</th>
-    <th class="data"></th>
-  </tr>
-<%- end
-    @threads.each do |thread| -%>
-  <tr>
-    <td><%= link_to (thread.title || "something"), comment_path(thread.commentable_id) %></td>
-    <td><%=
-      op = Comment.where(comment_thread_id: thread.id, comment_id: nil).first.user
-      link_to op.handle, op
-  %></td>
-    <td><%= pluralize(thread.comment_count - 1, "comment") unless thread.comment_count == 1 %></td>
-  </tr>
-<%- end -%>
-</table>
-<div class="subhead">Future events</div>
-<table class="threads">
-  <caption><%= link_to "Post an event".gsub(" ", "&nbsp;").html_safe, new_event_path if @allow[:event] %></caption>
-<%- unless @events.empty? -%>
-  <tr>
-    <th class="thread_title">Title</th>
-    <th class="user">Organiser</th>
-    <th class="time">Time</th>
-    <th class="data"></th>
-  </tr>
-<%- end
-    @events.each do |event|
-      comment_count = event.comment_threads.first.comment_count -%>
-  <tr>
-    <td><%= link_to (event.comment_threads.first.title || "something"), event_path(event) %></td>
-    <td><%=
-        if event.users.empty?
-          "nobody"
-        else
-          organiser = User.find(event.users.first)
-          link_to organiser.handle, organiser
-        end
-  %></td>
-    <td><%= time_ago_in_words(event.time, include_seconds: true) + (event.time > Time.now ? " from now" : " ago") %></td>
-    <td><%=
-      data = []
-      data << pluralize(event.users.length, "attendee").gsub(" ", "&nbsp;") unless event.users.length == 1
-      data << pluralize(comment_count, "comment").gsub(" ", "&nbsp;") unless comment_count.nil?
-      data.join(", ").html_safe
- %></td>
-  </tr>
-<%- end -%>
-</table>
