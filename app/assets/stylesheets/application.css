@@ -3,7 +3,7 @@
  *= require_tree .
  */
 
-.login {
+.login_box {
   position: absolute;
   top: .3em;
   right: .3em;
@@ -15,7 +15,7 @@
   font-size: 10pt
 }
 
-.login > p {
+.login_box > p {
   margin: 0;
 }
 
@@ -34,7 +34,9 @@
   visibility: hidden
 }
 
-input[type=text], input[type=password] {
+input[type=text],
+input[type=password],
+input[type=email] {
   padding: .3em
 }
 

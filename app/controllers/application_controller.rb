@@ -9,9 +9,9 @@ class ApplicationController < ActionController::Base
 
   def allow_create thread
     case thread
-      when :post then Post.where(user_id: session[:login]).count < 10
-      when :comment then true
-      when :event then true
+      when :posts then Post.where(user_id: session[:login]).count < 10
+      when :comments then true
+      when :events then true
     end
   end
 
@@ -25,6 +25,6 @@ class ApplicationController < ActionController::Base
     end
 
     def allow_creation
-      redirect_to ( session.delete(:return_to) || root_path ) unless allow_create controller_name
+      redirect_to ( session.delete(:return_to) || root_path ) unless allow_create controller_name.to_sym
     end
 end

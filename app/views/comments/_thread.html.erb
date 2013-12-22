@@ -22,7 +22,7 @@
     </td>
     <td class="comment<%= ' hide' if show -%>" data-body="<%= comment.body %>">
       <div><%= markdown comment.body %>
-        <div class="timestamp"><%= comment.created_at.to_formatted_s(:long) %></div>
+        <span class="timestamp"><%= comment.created_at.to_formatted_s(:long) %></span>
       </div>
     </td>
     <%- if show -%><td class="comment_edit"><textarea></textarea></td><%- end -%>

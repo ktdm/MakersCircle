@@ -1,6 +1,7 @@
 MakersCircle::Application.routes.draw do
 
   root 'home#index'
+  post 'checkhandle', to: 'home#checkhandle'
   post 'login', to: 'home#login'
   get 'logout', to: 'home#logout'
   get 'ping', to: 'home#ping'

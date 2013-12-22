@@ -34,10 +34,10 @@
 <%- else -%>
 <div class="show">
   <div class="head_title"><%= @original_comment.comment_threads.first.title %></div>
-  <div class="head_subhead"><%= "posted by " + @original_comment.user.handle %></div>
+  <div class="head_subhead">posted by <%= link_to @original_comment.user.handle, @original_comment.user %></div>
   <div class="head_body">
     <%= markdown @original_comment.body %>
-    <div class="timestamp"><%= @original_comment.created_at.to_formatted_s(:long) %></div>
+    <span class="timestamp"><%= @original_comment.created_at.to_formatted_s(:long) %></span>
   </div>
   <div class="back"><%= link_to "Back to all the posts", posts_path %></div>
 </div>

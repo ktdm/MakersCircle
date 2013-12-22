@@ -1,11 +1,47 @@
-<div class="title">Makers' Circle</div>
 <%- if session[:login] -%>
+<div class="title">
+  <img src="assets/mclogo-white.png" />
+  Makers' Circle
+</div>
 <%=   render partial: "posts/list", locals: {threads: @posts} %>
 <%=   render partial: "comments/list", locals: {threads: @comments} %>
 <%=   render partial: "events/list", locals: {threads: @events} %>
 <%- else -%>
 <div class="home">
-  <p>Now printing...</p>
-  <p><%= link_to "Register!", new_user_path %></p>
+  <div class="hello">
+    <div class="title">
+      <img src="assets/mclogo-white.png" />
+      Makers' Circle
+    </div>
+    <div class="byline">
+      <div>Don't know anyone to user-test your web thing?</div>
+      <div>Make friends while you dev, meet up for events</div>
+    </div>
+  </div>
+  <%= form_for :user, url: login_path, html: {class: :enter} do |f| %>
+    <div class="new">
+      <label>Create an account</label>
+      <p>
+        <%= f.text_field :handle, placeholder: "New username" %>
+      </p>
+      <p class="invalid" />
+    </div>
+    <div class="login">
+      <div class="form_toggle">
+        <div>Log in</div>
+        <div></div>
+      </div>
+      <p>
+        <%= f.email_field :email, placeholder: "email" %>
+      </p>
+      <p class="invalid" />
+      <p>
+        <%= f.password_field :password, placeholder: "password" %>
+      </p>
+      <p class="invalid" />
+      <%= f.submit "Log in" %>
+    </div>
+    <div class="footer">&copy; Aidan Hamwood 2013</div>
+  <%- end -%>
 </div>
 <%- end -%>

@@ -29,9 +29,21 @@ class HomeController < ApplicationController
     render :nothing => true
   end
 
+  def checkhandle
+    maybeuser = User.where checkhandle_params
+    case 
+    when maybeuser.length == 0 then render text: "true"
+    else render text: "\"That username is being used already.\""
+    end
+  end
+
   private
     def login_params
       params.require(:user).permit(:email, :password)
+    end
+
+    def checkhandle_params
+      params.require(:user).permit(:handle)
     end
 
 end

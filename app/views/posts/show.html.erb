@@ -24,12 +24,12 @@
     <span>Are you <b>sure</b>?</span>
     <%= f.submit "Remove", class: :hide %>
   </div>
-  <div class="back"><%= link_to "Back to all the posts", root_path %></div>
+  <div class="back"><%= link_to "Back to all the things", root_path %></div>
 <%-   end -%>
 <%- else -%>
 <div class="show">
   <div class="head_title"><%= link_to(@post.comment_threads.first.title, @post.item) if @post.kind == "project" %></div>
-  <div class="head_subhead"><%= @post.kind + " by " + @post.user.handle %></div>
+  <div class="head_subhead"><%= @post.kind %> by <%= link_to @post.user.handle, @post.user %></div>
   <div class="back"><%= link_to "Back to all the posts", posts_path %></div>
 </div>
 <%- end -%>

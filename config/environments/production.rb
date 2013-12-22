@@ -31,6 +31,7 @@ MakersCircle::Application.configure do
   # config.assets.css_compressor = :sass
 
   config.assets.compile = true
+  config.assets.precompile += %w( .svg .eot .woff .ttf)
 
   # Generate digests for assets URLs.
   config.assets.digest = true

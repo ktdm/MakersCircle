@@ -1,5 +1,9 @@
 $(document).ready(function () {
 
+  $(".toggle_tip").click(function () {
+    $(".markdown_tip").toggleClass("show_tip")
+  });
+
   $(".head_subhead > .rename").click(function () {
     $(".head_rename").toggleClass("hide");
     $(".head_rename > input[type=text]").val($(".head_title").attr("data-title"));

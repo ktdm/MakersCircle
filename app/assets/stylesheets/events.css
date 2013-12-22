@@ -13,3 +13,13 @@
 .head_attendees > a {
   text-decoration: none
 }
+
+select {
+  padding: .3em;
+  height: 2.4em
+} 
+
+option {
+  padding: .3em;
+  margin: 0
+}
