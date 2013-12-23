@@ -7,7 +7,7 @@
   position: absolute;
   top: .3em;
   right: .3em;
-  background-color: #eee;
+  background-color: aliceblue;
   padding: .5em;
   width: auto;
   margin: 0;
@@ -16,15 +16,7 @@
 }
 
 .login_box > p {
-  margin: 0;
-}
-
-.title {
-  width: 100%;
-  font-size: 36pt;
-  font-family: sans-serif;
-  text-align: center;
-  color: #000
+  margin: 0
 }
 
 .hide {
@@ -34,10 +26,20 @@
   visibility: hidden
 }
 
+a {
+  text-decoration: none;
+  color: #a01;
+  font-weight: bold
+}
+a:hover {
+  text-decoration: underline
+}
+
 input[type=text],
 input[type=password],
 input[type=email] {
-  padding: .3em
+  padding: .3em;
+  outline: 0
 }
 
 select {

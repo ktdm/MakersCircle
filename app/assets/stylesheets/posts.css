@@ -1,19 +1,21 @@
-.subhead {
-  width: 70%;
-  text-align: left;
-  margin: .8em auto;
+.list_group > .title {
+  margin-left: 20px;
+  padding: .8em 0;
   font-size: 18pt;
-  font-family: sans-serif;
-  color: #000;
-  font-weight: bold;
+  background-color: inherit;
+  color: #f02
+}
+
+td > .th {
+  float: right
+}
+td > .th:after {
+  content: "\a0";
 }
 
 .head_title {
   font-size: 24pt;
   text-align: justify
-}
-.head_title > a {
-  text-decoration: none
 }
 
 form .head_rename {
@@ -24,10 +26,6 @@ form .head_rename {
 
 .head_subhead {
   font-size: 10pt
-}
-
-.head_subhead > a {
-  text-decoration: none
 }
 
 .action {
@@ -57,10 +55,7 @@ form .head_rename {
 }
 
 .back {
-  margin: 1em 0
-}
-.back > a {
-  text-decoration: none
+  margin: 1em 20px
 }
 
 table {
@@ -68,37 +63,36 @@ table {
 }
 
 table.threads {
-  margin: 2em 15% 4em 15%
+  background-color: #def
 }
 
 table.comments {
+  width: 83%;
+  background-color: gold
+}
+
+tr {
   width: 100%
 }
 
-th {
-  text-align: left
+tr > :first-child {
+  width: inherit;
+  padding-left: 20px !important
 }
-
-th.title {
-  width: 18em;
-  font-size: inherit;
-  font-family: inherit;
-  text-align: inherit
+tr > :nth-last-child(0n+3) {
+  min-width: 14em
 }
-th.user {
-  width: 8em
+tr > :nth-last-child(0n+2) {
+  min-width: 10em
 }
-th.time {
-  width: 14em
-}
-th.data {
-  width: 17em
+tr > :last-child {
+  min-width: 17em
 }
 
 th,
 td > div,
 .threads td {
-  padding: .5em 1em
+  padding: .5em 0
 }
 
 td {
@@ -109,10 +103,13 @@ td {
 .threads > caption {
   caption-side: bottom;
   text-align: left;
-  margin-top: 1.5em
+  margin-bottom: 1em
+}
+.list_group:last-child caption {
+  margin-bottom: 3em
 }
 caption > * {
-  margin: .5em 0
+  margin: .5em 20px
 }
 
 caption > :first-child {
@@ -121,7 +118,8 @@ caption > :first-child {
 
 .comments > caption {
   caption-side: top;
-  text-align: left
+  text-align: left;
+  background-color: inherit
 }
 
 .commenter,
@@ -151,12 +149,6 @@ caption > :first-child {
   font-size: 10pt;
   float: right;
   line-height: 1.9em
-}
-
-form > .comments,
-form.new {
-  width: 70%;
-  margin: 0 auto 4em auto
 }
 
 textarea {

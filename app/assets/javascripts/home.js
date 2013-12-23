@@ -42,7 +42,7 @@ $(document).ready(function () {
     $(".form_toggle > :last-child").text("");
     $(".login > input[type=submit]").val("Log in");
     $(".enter").attr({action: "/login"});
-    $("label[for=user_handle]").css({display: "none"})
+    $("label[for=user_handle]").css({display: "none"}) //hook into jquery_validate
   }
 
   function actuallyLetLogin () {
@@ -55,7 +55,7 @@ $(document).ready(function () {
 
   $(".enter").validate({
     errorPlacement: function(error, element) {
-      element.parent("p").next("p").html(error)
+      element.parent("p").next("p.message").html(error)
     },
     rules: {
       "user[handle]": {
@@ -64,7 +64,7 @@ $(document).ready(function () {
           method: "post",
           complete: function (data) {
             if (data.responseText == "true") {
-              $("#user_handle").parent("p").next("p").html(
+              $("#user_handle").parent("p").next("p.message").html(
                 "<label for=\"user_handle\" class=\"valid\">That username is available!</label>"
               )
             }

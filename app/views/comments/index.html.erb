@@ -1,20 +1,22 @@
 <div class="title">All discussions</div>
+<div class="body">
 <%= render partial: "comments/list", locals: {threads: @comments} %>
-<%- if controller.allow_create :post -%>
-<div class="subhead">Start a discussion</div>
-<%=   form_for :comment, url: comments_path, html: {class: :new} do |f| %>
+<%- if controller.allow_create :comments -%>
+<%=   form_for :comment, url: comments_path, html: {class: :new, id: "new_discussion"} do |f| %>
+    <label for="new_discussion" class="form_label">Start a discussion</label>
 <%=     render "comments/markdown_tip" %>
-  <p>
+    <p>
 <%=     fields_for :comment_thread do |t| %>
 <%=       t.label :title %>
 <%=       t.text_field :title %>
 <%-     end -%>
-  </p>
-  <p>
+    </p>
+    <p>
 <%=     f.text_area :body %>
-  </p>
-  <p>
+    </p>
+    <p>
 <%=     f.submit "Discuss" %>
-  </p>
+    </p>
 <%-   end -%>
 <%- end -%>
+</div>

@@ -3,9 +3,11 @@
   <img src="assets/mclogo-white.png" />
   Makers' Circle
 </div>
-<%=   render partial: "posts/list", locals: {threads: @posts} %>
-<%=   render partial: "comments/list", locals: {threads: @comments} %>
-<%=   render partial: "events/list", locals: {threads: @events} %>
+<div class="body">
+  <%=   render partial: "posts/list", locals: {threads: @posts} %>
+  <%=   render partial: "comments/list", locals: {threads: @comments} %>
+  <%=   render partial: "events/list", locals: {threads: @events} %>
+</div>
 <%- else -%>
 <div class="home">
   <div class="hello">
@@ -24,8 +26,13 @@
       <p>
         <%= f.text_field :handle, placeholder: "New username" %>
       </p>
-      <p class="invalid" />
+      <p class="message" />
     </div>
+<%- if flash[:notice] == "not_found" -%>
+    <p class="message">
+      <label for="enter" class="error">Couldn't log you in</label
+    </p>
+<%- end -%>
     <div class="login">
       <div class="form_toggle">
         <div>Log in</div>
@@ -34,11 +41,11 @@
       <p>
         <%= f.email_field :email, placeholder: "email" %>
       </p>
-      <p class="invalid" />
+      <p class="message" />
       <p>
         <%= f.password_field :password, placeholder: "password" %>
       </p>
-      <p class="invalid" />
+      <p class="message" />
       <%= f.submit "Log in" %>
     </div>
     <div class="footer">&copy; Aidan Hamwood 2013</div>

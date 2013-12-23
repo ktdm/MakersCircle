@@ -14,7 +14,7 @@ class HomeController < ApplicationController
       session[:login] = @user.id
       session[:user_handle] = @user.handle
     else
-      flash[:notice] = "Not found."
+      flash[:notice] = "not_found"
     end
     redirect_to root_path
   end

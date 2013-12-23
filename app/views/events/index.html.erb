@@ -1,25 +1,27 @@
 <div class="title">All events</div>
+<div class="body">
 <%= render partial: "events/list", locals: {threads: @events} %>
-<%- if controller.allow_create :post -%>
-<div class="subhead">Post one</div>
-<%=   form_for :event, url: events_path, html: {class: :new} do |f| %>
-  <p>
+<%- if controller.allow_create :events -%>
+<%=   form_for :event, url: events_path, html: {class: :new, id: "new_event"} do |f| %>
+    <label for="new_event" class="form_label">Post one</label>
+    <p>
 <%=     fields_for :comment_thread do |t| %>
 <%=       t.label :title %>
 <%=       t.text_field :title %>
 <%-     end -%>
-  </p>
-  <p>
+    </p>
+    <p>
 <%=     f.label :time %>
 <%=     f.datetime_select :time %>
-  </p>
+    </p>
 <%=     render "comments/markdown_tip" %>
-  <p>
+    <p>
 <%=     f.label :details %>
 <%=     f.text_area :details %>
-  </p>
-  <p>
+    </p>
+    <p>
 <%=     f.submit "Publish" %>
-  </p>
+    </p>
 <%-   end -%>
 <%- end -%>
+</div>

@@ -1,35 +1,29 @@
-<div class="subhead">Future events</div>
-<table class="threads">
-  <caption><%=
+<div class="list_group">
+  <div class="title">Future events</div>
+  <table class="threads">
+    <caption><%=
     controller_name == "events" ? link_to("Back to all the things".gsub(" ", "&nbsp;").html_safe, root_path) : link_to("See all / post your own".gsub(" ", "&nbsp;").html_safe, events_path)
 %></caption>
-<%- unless @events.empty? -%>
-  <tr>
-    <th class="title">Title</th>
-    <th class="user">Organiser</th>
-    <th class="time">Time</th>
-    <th class="data"></th>
-  </tr>
-<%- end
-    @events.each do |event|
+<%- @events.each do |event|
       comment_count = event.comment_threads.first.comment_count -%>
-  <tr>
-    <td><%= link_to (event.comment_threads.first.title || "something"), event_path(event) %></td>
-    <td><%=
+    <tr>
+      <td><%= link_to (event.comment_threads.first.title || "something"), event_path(event) %></td>
+      <td><%= time_ago_in_words(event.time, include_seconds: true) + (event.time > Time.now ? " from now" : " ago") %></td>
+      <td><%=
         if event.users.empty?
           "nobody"
         else
           organiser = User.find(event.users.first)
           link_to organiser.handle, organiser
         end
-  %></td>
-    <td><%= time_ago_in_words(event.time, include_seconds: true) + (event.time > Time.now ? " from now" : " ago") %></td>
-    <td><%=
+    %></td>
+      <td><%=
       data = []
       data << pluralize(event.users.length, "attendee").gsub(" ", "&nbsp;") unless event.users.length == 1
-      data << pluralize(comment_count, "comment").gsub(" ", "&nbsp;") unless comment_count.nil?
+      data << pluralize(comment_count, "comment").gsub(" ", "&nbsp;") unless comment_count.nil? && ( event != @events.first || event.users.length != 1 )
       data.join(", ").html_safe
  %></td>
-  </tr>
+    </tr>
 <%- end -%>
-</table>
+  </table>
+</div>

@@ -20,6 +20,17 @@
   font-style: normal
 }
 
+@font-face {
+  font-family: 'Libre Baskerville';
+  src: url('/assets/librebaskerville-bold-webfont.eot');
+  src: url('/assets/librebaskerville-bold-webfont.eot?#iefix') format('embedded-opentype'),
+       url('/assets/librebaskerville-bold-webfont.woff') format('woff'),
+       url('/assets/librebaskerville-bold-webfont.ttf') format('truetype'),
+       url('/assets/librebaskerville-bold-webfont.svg#libre_baskervillebold') format('svg');
+  font-weight: bold;
+  font-style: normal
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -38,17 +49,23 @@ body {
   top: 0;
   bottom: 0;
   display: table;
-  font-family: 'Libre Baskerville'
+  font-family: 'Libre Baskerville';
+  background-color: #001
 }
 
 .title {
+  font-family: 'Roboto';
+  font-style: italic;
+  font-weight: normal;
   text-align: left;
+}
+
+.title {
+  margin-left: 5%;
+  width: 60%;
   background-color: #f02;
   color: white;
-  font-family: 'Roboto';
   font-size: 54pt;
-  font-weight: normal;
-  font-style: italic;
   overflow: hidden;
   white-space: nowrap;
   line-height: 1.6em
@@ -65,8 +82,7 @@ body {
 }
 
 .hello {
-  background-color: #001;
-  background-image: url(/assets/mcarrow-f03.png);
+  background-image: url(/assets/mcarrow-003.png);
   background-position: 75% 50%;
   background-repeat: no-repeat;
   background-attachment: scroll
@@ -74,10 +90,11 @@ body {
 
 .hello > .title {
   position: fixed;
-  bottom: 0;
   left: 5%;
+  bottom: 0;
   width: 89%;
-  transition: width .4s ease;
+  margin: 0;
+  transition: width .4s ease; /* ie9.. */
 }
 .title > img {
   vertical-align: bottom;
@@ -90,7 +107,7 @@ body {
 .hello > .byline {
   width: 100%;
   text-align: center;
-  margin-top: 43vh;
+  margin-top: 43vh; /* ie9.. */
   color: hotpink;
   font-size: 18pt;
   line-height: 1.7em
@@ -116,7 +133,10 @@ body {
 }
 
 .new {
-  padding: 2em 0
+  padding-top: 2em
+}
+.new > .message {
+  min-height: 2em
 }
 
 .form_toggle {
@@ -133,8 +153,9 @@ body {
 }
 
 .login > p,
-.new > p {
-  margin-bottom: 10px;
+.new > p,
+.login {
+  margin: 10px 0;
   width: 100%
 }
 .enter label {
@@ -152,8 +173,7 @@ body {
 .enter input[type=email],
 .enter input[type=password] {
   border: 1px solid #777;
-  border-radius: 4px;
-  outline: 0
+  border-radius: 4px
 }
 
 .enter > .footer {
@@ -162,4 +182,36 @@ body {
   padding-bottom: 1em;
   width: 30%;
   text-align: center
+}
+
+.body {
+  background-image: url(/assets/flourish-003.png);
+  background-position: 2% 0%;
+  background-repeat: no-repeat;
+  background-attachment: scroll;  
+  padding-bottom: 2em
+}
+
+.list_group,
+.new,
+.show,
+.comments {
+  margin-left: 15%;
+  margin-right: 2%
+}
+
+.list_group {
+  background-color: aliceblue;
+}
+
+.new {
+  background-color: gold;
+}
+
+.show {
+  background-color: #f02
+}
+
+label.form_label {
+  font-size: 18pt
 }

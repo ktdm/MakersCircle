@@ -1,21 +1,23 @@
 <div class="title">All posts</div>
+<div class="body">
 <%= render partial: "posts/list", locals: {threads: @posts} %>
-<%- if controller.allow_create :post -%>
-<div class="subhead">Post your thing</div>
-<%=   form_for :post, url: posts_path, html: {class: :new} do |f| %>
+<%- if controller.allow_create :posts -%>
+<%=   form_for :post, url: posts_path, html: {class: :new, id: "new_post"} do |f| %>
+    <label for="new_post" class="form_label">Post your thing</label>
 <%=     fields_for :comment_thread do |t| %>
-  <p>
-    <%= t.label :title, "title" %> <%= t.text_field :title %>
-  </p>
+    <p>
+      <%= t.label :title, "title" %> <%= t.text_field :title %>
+    </p>
 <%-     end -%>
-  <p>
-    <%= f.label :item, "project URL" %> <%= f.text_field :item %>
-  </p>
-  <p>
-    <%= f.label :kind, "kind of post" %> <%= f.select :kind, options_for_select( ['project', 'snippet'], disabled: ['snippet'] ) %>
-  </p>
-  <p>
-    <%= f.submit %>
-  </p>
+    <p>
+      <%= f.label :item, "project URL" %> <%= f.text_field :item %>
+    </p>
+    <p>
+      <%= f.label :kind, "kind of post" %> <%= f.select :kind, options_for_select( ['project', 'snippet'], disabled: ['snippet'] ) %>
+    </p>
+    <p>
+      <%= f.submit %>
+    </p>
 <%-   end -%>
 <%- end -%>
+</div>
