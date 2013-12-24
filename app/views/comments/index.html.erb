@@ -1,22 +1,27 @@
-<div class="title">All discussions</div>
+<div class="title">
+  <a href="/">
+    <img src="/assets/mclogo-white.png" />
+    Makers' Circle
+  </a>
+</div>
 <div class="body">
 <%= render partial: "comments/list", locals: {threads: @comments} %>
 <%- if controller.allow_create :comments -%>
-<%=   form_for :comment, url: comments_path, html: {class: :new, id: "new_discussion"} do |f| %>
+  <%= form_for :comment, url: comments_path, html: {class: :new, id: "new_discussion"} do |f| %>
     <label for="new_discussion" class="form_label">Start a discussion</label>
-<%=     render "comments/markdown_tip" %>
-    <p>
+    <div id="discussion_title_cell">
 <%=     fields_for :comment_thread do |t| %>
-<%=       t.label :title %>
-<%=       t.text_field :title %>
+<%=       t.text_field :title, placeholder: "Title" %>
 <%-     end -%>
-    </p>
-    <p>
-<%=     f.text_area :body %>
-    </p>
-    <p>
-<%=     f.submit "Discuss" %>
-    </p>
-<%-   end -%>
+    </div>
+    <div id="discussion_body_cell">
+<%=     f.text_area :body, placeholder: "Topic" %>
+<%=     render "comments/markdown_tip" %>
+    </div>
+    <div class="message"></div>
+    <div id="discussion_submit_cell">
+<%=     f.submit "Discuss", tabIndex: -1 %>
+    </div>
+  <%- end -%>
 <%- end -%>
 </div>

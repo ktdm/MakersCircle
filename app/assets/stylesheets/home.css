@@ -96,12 +96,20 @@ body {
   margin: 0;
   transition: width .4s ease; /* ie9.. */
 }
-.title > img {
+.title img {
   vertical-align: bottom;
   padding: 10px;
   margin: 5px -20px 5px 10px;
   width: 100px;
   height: 105px
+}
+
+.title > a {
+  font-weight: normal;
+  color: inherit;
+}
+.title > a:hover {
+  text-decoration: none
 }
 
 .hello > .byline {
@@ -132,8 +140,9 @@ body {
   width: 30%
 }
 
-.new {
-  padding-top: 2em
+.enter > .new {
+  padding: 2em 0 0 0;
+  margin: 0
 }
 .new > .message {
   min-height: 2em
@@ -160,20 +169,14 @@ body {
 }
 .enter label {
   width: 100%;
-  padding: 10px 0
+  padding: 10px 0;
+  display: block;
 }
 .enter label.error {
   background-color: #f02
 }
 .enter label.valid {
   background-color: limegreen
-}
-
-.enter input[type=text],
-.enter input[type=email],
-.enter input[type=password] {
-  border: 1px solid #777;
-  border-radius: 4px
 }
 
 .enter > .footer {
@@ -186,7 +189,7 @@ body {
 
 .body {
   background-image: url(/assets/flourish-003.png);
-  background-position: 2% 0%;
+  background-position: 2% 0;
   background-repeat: no-repeat;
   background-attachment: scroll;  
   padding-bottom: 2em
@@ -206,6 +209,7 @@ body {
 
 .new {
   background-color: gold;
+  padding: 10px;
 }
 
 .show {

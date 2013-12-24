@@ -1,9 +1,7 @@
 <div class="list_group">
   <div class="title">Discussion threads</div>
   <table class="threads">
-    <caption><%=
-    controller_name == "comments" ? link_to("Back to all the things".gsub(" ", "&nbsp;").html_safe, root_path) : link_to("See all / post your own".gsub(" ", "&nbsp;").html_safe, comments_path)
-%></caption>
+    <caption><%= link_to"See all / post your own".gsub(" ", "&nbsp;").html_safe, comments_path unless controller_name == "comments" -%></caption>
 <%- @comments.each do |comment|
       comment_count = comment.comment_threads.first.comment_count -%>
     <tr>

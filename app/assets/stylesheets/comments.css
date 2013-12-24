@@ -11,18 +11,18 @@
 }
 
 .markdown_tip {
-  border-radius: 5px;
+  border-radius: 0 0 4px 4px;
   float: right;
-  background-color: #f4f4f4;
+  background-color: #003;
+  color: white;
   padding: .5em .8em;
   position: relative;
   height: 2em;
-  margin-bottom: .5em
+  right: 10px
 }
 
 .toggle_tip {
   font-weight: bold;
-  font-family: sans-serif;
   cursor: pointer;
   font-size: 9pt;
   position: relative;
@@ -33,10 +33,13 @@
   display: none;
   margin-top: .3em;
   position: relative;
+  width: 400px;
 }
 
 .show_tip {
-  width: 400px
+  width: 400px;
+  border-radius: 4px;
+  right: 0;
 }
 
 .show_tip > .tip_text {
@@ -44,11 +47,9 @@
   right: 0;
   top: 1.5em;
   position: absolute;
-  background-color: #f4f4f4;
+  background-color: #003;
   padding: .5em .8em;
-  width: 400px;
-  text-align: right;
-  border-radius: 0 0 5px 5px
+  border-radius: 0 0 4px 4px
 }
 
 .show_tip p, .comment p, .head_body p {

@@ -25,6 +25,15 @@
 .invisible {
   visibility: hidden
 }
+.table {
+  display: table
+}
+.table > * {
+  display: table-row
+}
+.table > * > * {
+  display: table-cell
+}
 
 a {
   text-decoration: none;
@@ -37,9 +46,15 @@ a:hover {
 
 input[type=text],
 input[type=password],
-input[type=email] {
+input[type=email],
+textarea {
   padding: .3em;
-  outline: 0
+  outline: 0;
+  border: 1px solid #777;
+  border-radius: 4px
+}
+input[type=submit] {
+  padding: .3em .8em
 }
 
 select {
@@ -47,4 +62,8 @@ select {
 }
 option {
   margin: .3em
+}
+
+label {
+  display: block;
 }

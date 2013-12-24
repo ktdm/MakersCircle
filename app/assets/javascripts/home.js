@@ -27,33 +27,32 @@ $(document).ready(function () {
 
   $(".form_toggle > :last-child").on("click", function () {
     if ($(".enter").attr("action") == "/users") actuallyLetLogin()
-    else if ($(".enter").attr("action") == "/login") letCreate()
+    else if ($(".enter").attr("action") == "/login") letCreate();
   });
 
   function letCreate () {
     $(".form_toggle > :first-child").text("with these login details");
     $(".form_toggle > :last-child").text("(don't create)");
     $(".login > input[type=submit]").val("Register!");
-    $(".enter").attr({action: "/users"})
+    $(".enter").attr({action: "/users"});
+    $("#user_handle").valid()
   }
 
   function letLogin () {
     $(".form_toggle > :first-child").text("Log in");
     $(".form_toggle > :last-child").text("");
     $(".login > input[type=submit]").val("Log in");
-    $(".enter").attr({action: "/login"});
-    $("label[for=user_handle]").css({display: "none"}) //hook into jquery_validate
+    $(".enter").attr({action: "/login"})
   }
 
   function actuallyLetLogin () {
     $(".form_toggle > :first-child").text("oops, I mean log in!");
     $(".form_toggle > :last-child").text("(actually, make an account)");
     $(".login > input[type=submit]").val("Log in");
-    $(".enter").attr({action: "/login"});
-    $("label[for=user_handle]").css({display: "none"})
+    $(".enter").attr({action: "/login"})
   }
 
-  $(".enter").validate({
+  var validator = $(".enter").validate({
     errorPlacement: function(error, element) {
       element.parent("p").next("p.message").html(error)
     },

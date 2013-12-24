@@ -1,27 +1,30 @@
-<div class="title">All events</div>
+<div class="title">
+  <a href="/">
+    <img src="/assets/mclogo-white.png" />
+    Makers' Circle
+  </a>
+</div>
 <div class="body">
 <%= render partial: "events/list", locals: {threads: @events} %>
 <%- if controller.allow_create :events -%>
-<%=   form_for :event, url: events_path, html: {class: :new, id: "new_event"} do |f| %>
+  <%= form_for :event, url: events_path, html: {class: :new, id: "new_event"} do |f| %>
     <label for="new_event" class="form_label">Post one</label>
-    <p>
+    <div id="event_title_cell">
 <%=     fields_for :comment_thread do |t| %>
-<%=       t.label :title %>
-<%=       t.text_field :title %>
+<%=       t.text_field :title, placeholder: "Title" %>
 <%-     end -%>
-    </p>
-    <p>
-<%=     f.label :time %>
+    </div>
+    <div id="event_time_cell">
 <%=     f.datetime_select :time %>
-    </p>
+    </div>
+    <div id="event_details_cell">
+<%=     f.text_area :details, placeholder: "Details" %>
 <%=     render "comments/markdown_tip" %>
-    <p>
-<%=     f.label :details %>
-<%=     f.text_area :details %>
-    </p>
-    <p>
-<%=     f.submit "Publish" %>
-    </p>
-<%-   end -%>
+    </div>
+    <div class="message"></div>
+    <div id="event_submit_cell">
+<%=     f.submit "Publish", tabIndex: -1 %>
+    </div>
+  <%- end -%>
 <%- end -%>
 </div>

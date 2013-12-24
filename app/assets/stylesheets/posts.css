@@ -13,6 +13,10 @@ td > .th:after {
   content: "\a0";
 }
 
+.new > .form_label {
+  padding: 10px
+}
+
 .head_title {
   font-size: 24pt;
   text-align: justify
@@ -160,10 +164,54 @@ textarea {
   display: inherit
 }
 
-select {
-  margin-left: .5em
+.body .new {
+  padding: 20px 0;
+  overflow: hidden;
+}
+.body .new > label {
+  padding: 0 20px 20px 20px;
+  margin: 0px
+}
+.body .new > div {
+  padding: 0 20px 10px 20px
 }
 
-input[type=submit] {
-  padding: .3em .8em
+.body .new div.message {
+  padding: 0
+}
+.body .new label.error {
+  background-color: #f02;
+  padding: 10px 20px
+}
+
+input[name$='[title]'] {
+  font-size: 18pt;
+  width: 100%
+}
+
+#post_item_cell {
+  width: 100%;
+  padding-left: 10px
+}
+#post_kind_cell,
+#post_item_cell {
+  padding-bottom: 0
+}
+
+input[name$='[item]'] {
+  padding: .4em;
+  width: 100%
+}
+
+#post_submit_cell,
+#discussion_submit_cell,
+#event_submit_cell {
+  padding: 20px;
+  padding-left: 100px;
+  display: inline-block;
+  background-color: #003;
+  border-radius: 0 25px 25px 0;
+  position: relative;
+  right: 1000px;
+  transition: right .4s ease
 }

@@ -1,6 +1,6 @@
 <%- if session[:login] -%>
 <div class="title">
-  <img src="assets/mclogo-white.png" />
+  <img src="/assets/mclogo-white.png" />
   Makers' Circle
 </div>
 <div class="body">
@@ -12,7 +12,7 @@
 <div class="home">
   <div class="hello">
     <div class="title">
-      <img src="assets/mclogo-white.png" />
+      <img src="/assets/mclogo-white.png" />
       Makers' Circle
     </div>
     <div class="byline">
@@ -28,9 +28,9 @@
       </p>
       <p class="message" />
     </div>
-<%- if flash[:notice] == "not_found" -%>
+<%- if flash[:notice] -%>
     <p class="message">
-      <label for="enter" class="error">Couldn't log you in</label
+      <label for="enter" class="error"><%= flash[:notice] %></label>
     </p>
 <%- end -%>
     <div class="login">

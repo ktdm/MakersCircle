@@ -1,4 +1,7 @@
-<div class="title">A member</div>
+<div class="title">
+  <img src="/assets/mclogo-white.png" />
+  Makers' Circle
+</div>
 <%- if @user.id == session[:login] -%>
 <%=   form_for :user, url: @user, method: :patch, html: {class: :show} do |f| %>
   <div class="head_title"><%= @user.handle%></div>
