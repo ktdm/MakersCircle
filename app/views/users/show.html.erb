@@ -1,6 +1,8 @@
 <div class="title">
-  <img src="/assets/mclogo-white.png" />
-  Makers' Circle
+  <a href="/">
+    <img src="/assets/mclogo-white.png" />
+    Makers' Circle
+  </a>
 </div>
 <%- if @user.id == session[:login] -%>
 <%=   form_for :user, url: @user, method: :patch, html: {class: :show} do |f| %>
@@ -35,12 +37,12 @@
 <%-   end -%>
 <%- else -%>
 <div class="show">
-  <div class="head_title"><%= @user.handle%></div>
+  <div class="title"><%= @user.handle%></div>
 <%-   if @user.prefs["email"] == "shown" -%>
-  <div class="head_email"><%= @user.email %></div>
+  <div class="email"><%= @user.email %></div>
 <%-   end -%>
-  <div class="head_subhead"><%= "joined on " + @user.created_at.to_date.to_formatted_s(:long_ordinal) %></div>
-  <div class="head_body"><%= @user.intro %></div>
+  <div class="subhead"><%= "joined on " + @user.created_at.to_date.to_formatted_s(:long_ordinal) %></div>
+  <div class="body"><%= @user.intro %></div>
   <%= link_to "To the posts page", root_path %>
 </div>
 <%- end -%>

@@ -13,4 +13,6 @@ $(document).ready(function () {
     $("<span class=\"th\">on</span>").appendTo(th.eq(-4))
   })
 
+  $("body > .body").css({paddingBottom: function () { return $(window).height() - 115} })
+
 })

@@ -1,17 +1,19 @@
-.head_body > p {
+form.show > .body > p {
   font-size: 12pt
 }
 
-.head_attendees {
-  font-size: 10pt
+form.show > .time_edit {
+  padding: 0 20px 20px 20px;
+  background-color: gold
 }
 
-.head_attendees > input[type=submit] {
+.attendees {
+  font-size: 10pt;
+  padding: 10px 20px
+}
+
+.attendees > input[type=submit] {
   margin: -.6em 0
-}
-
-.head_attendees > a {
-  text-decoration: none
 }
 
 select {

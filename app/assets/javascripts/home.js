@@ -22,12 +22,12 @@ $(document).ready(function () {
   function registerToggle () {
     var val = $("#user_handle").val();
     if (val != "") letCreate()
-    else if (val == "") letLogin();
+    else if (val == "") letLogin()
   }
 
   $(".form_toggle > :last-child").on("click", function () {
     if ($(".enter").attr("action") == "/users") actuallyLetLogin()
-    else if ($(".enter").attr("action") == "/login") letCreate();
+    else if ($(".enter").attr("action") == "/login") letCreate()
   });
 
   function letCreate () {

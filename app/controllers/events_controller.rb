@@ -14,7 +14,7 @@ class EventsController < ApplicationController
 
   def show
     @event = begin
-      Event.includes(:comment_threads).find params[:id]
+      Event.unscoped.includes(:comment_threads).find params[:id]
     rescue
       Event.new(id: params[:id])
     end
@@ -22,7 +22,7 @@ class EventsController < ApplicationController
   end
 
   def update
-    @event = Event.find params[:id]
+    @event = Event.unscoped.find params[:id]
     @event.update! event_params rescue 0
     @event.comment_threads.first.update! comment_thread_params rescue 0
     if ["Add self", "Remove self"].include? params[:commit]

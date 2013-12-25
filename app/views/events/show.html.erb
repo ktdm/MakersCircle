@@ -1,80 +1,93 @@
 <div class="title">
-  <img src="/assets/mclogo-white.png" />
-  Makers' Circle
+  <a href="/">
+    <img src="/assets/mclogo-white.png" />
+    Makers' Circle
+  </a>
 </div>
+<div class="body">
 <%- if @event.users.nil? -%>
-<div class="show">
-  <div class="head_removed">[ removed ]</div>
-  <div class="back"><%= link_to "Back to all the posts", root_path %></div>
-</div>
-<%- else -%>
-<%=   form_for :event, url: @event, method: :patch, html: {class: :show} do |f| %>
-<%-     if @event.users.first == session[:login] -%>
-  <div class="head_title" data-title="<%= @event.comment_threads.first.title %>">
-    <span class="hide"><%= @event.comment_threads.first.title %></span>
-    <span class="head_rename">
-<%=       fields_for :comment_thread do |t| %>
-      <%= t.text_field :title %>
-<%-       end -%>
-    </span>
+  <div class="show">
+    <div class="removed">[ removed ]</div>
   </div>
-  <div class="head_time hide" data-time="<%=
-          [@event.time.year, @event.time.month, @event.time.day, sprintf('%02d', @event.time.hour), sprintf('%02d', @event.time.min)] * " "
-  %>"><%= @event.time.to_formatted_s(:long) %></div>
-  <div class="head_time_edit">
-<%=       f.datetime_select :time %>
-  </div>
-  <div class="head_subhead">
-    organised by <%=
-          if @event.users.empty?
-            "nobody"
-          else
-            organiser = User.find @event.users.first
-            link_to organiser.handle, organiser
-          end
-%> - 
-    <span class="action edit">don't edit</span> - 
-    <span class="action remove">don't remove</span>
-  </div>
-  <div class="head_remove">
-    <span>Are you <b>sure</b>?</span>
-    <%= f.submit "Remove", class: :hide %>
-  </div>
-  <div class="head_body hide" data-body="<%= @event.details %>">
-    <%= markdown @event.details %>
-    <div class="timestamp"><%= @event.created_at.to_formatted_s(:long) %></div>
-  </div>
-  <div class="head_body_edit"><%= f.text_area :details %></div>
-  <%= f.submit "Update" %>
-<%-     else -%>
-  <div class="head_title"><%= @event.comment_threads.first.title %></div>
-  <div class="head_time"><%= @event.time.to_formatted_s(:long) %></div>
-  <div class="head_subhead">
-    organised by <%=
-          if @event.users.empty?
-            "nobody"
-          else
-            organiser = User.find @event.users.first
-            link_to organiser.handle, organiser
-          end
-%></div>
-  <div class="head_body">
-    <%= markdown @event.details %>
-    <div class="timestamp"><%= @event.created_at.to_formatted_s(:long) %></div>
-  </div>
-<%-     end -%>
-  <div class="head_attendees">
-    attending: 
-    <%= (User.find(@event.users).map{|u| link_to u.handle, u } * ", ").html_safe %>
-    <%= f.submit (@event.users.include?(session[:login]) ? "Remove self" : "Add self") %>
-  </div>
-  <div class="back"><%= link_to "Back to all the posts", root_path %></div>
-<%-   end -%>
-<%- end -%>
-<%= form_for :comment, url: comments_path, method: :create do |f| %>
+<%- elsif @event.users.first == session[:login] -%>
+  <%= form_for :event, url: @event, method: :patch, html: {class: :"show active"} do |f| %>
+    <div class="title" data-title="<%= @event.comment_threads.first.title %>">
+      <span class="hide"><%= @event.comment_threads.first.title %></span>
+      <span class="rename">
 <%=   fields_for :comment_thread do |t| %>
-  <%= t.hidden_field :id, value: @event.comment_threads.first.id %>
+        <%= t.text_field :title %>
 <%-   end -%>
-  <%= f.hidden_field :body %>
-<%=   render partial: "comments/thread", locals: {f: f} %>
+      </span>
+    </div>
+    <div class="time hide" data-time="<%=
+          [@event.time.year, @event.time.month, @event.time.day, sprintf('%02d', @event.time.hour), sprintf('%02d', @event.time.min)] * " "
+    %>"><%= @event.time.to_formatted_s(:long) %></div>
+    <div class="time_edit" id="event_time_cell">
+    <%= f.datetime_select :time %>
+    </div>
+    <div class="body hide" data-body="<%= @event.details %>">
+      <%= markdown @event.details %>
+      <div class="timestamp"><%= @event.created_at.to_formatted_s(:long) %></div>
+    </div>
+    <div class="body_edit">
+      <%= f.text_area :details %>
+      <%= render "comments/markdown_tip" %>
+    </div>
+    <div class="remove">
+      <span>Are you <b>sure</b>?</span>
+      <%= f.submit "Remove", class: :invisible %>
+    </div>
+    <div class="subhead">
+      organised by <%=
+        if @event.users.empty?
+          "nobody"
+        else
+          organiser = User.find @event.users.first
+          link_to organiser.handle, organiser
+        end
+%> - 
+      <span class="action edit">don't edit</span> - 
+      <span class="action remove">don't remove</span>
+    </div>
+    <div class="attendees">
+      attending: 
+      <%= (User.find(@event.users).map{|u| link_to u.handle, u } * ", ").html_safe %>
+      <%= f.submit (@event.users.include?(session[:login]) ? "Remove self" : "Add self") %>
+    </div>
+    <div class="message"></div>
+    <div id="event_edit_cell" class="submit">
+      <%= f.submit "Update", tabIndex: -1 %>
+    </div>
+  <%- end -%>
+<%-   else -%>
+  <%= form_for :event, url: @event, method: :patch, html: {class: :show} do |f| %>
+    <div class="title"><%= @event.comment_threads.first.title %></div>
+    <div class="time"><%= @event.time.to_formatted_s(:long) %></div>
+    <div class="body">
+      <%= markdown @event.details %>
+      <div class="timestamp"><%= @event.created_at.to_formatted_s(:long) %></div>
+    </div>
+    <div class="subhead">
+      organised by <%=
+        if @event.users.empty?
+          "nobody"
+        else
+          organiser = User.find @event.users.first
+          link_to organiser.handle, organiser
+        end
+%></div>
+    <div class="attendees">
+      attending: 
+      <%= (User.find(@event.users).map{|u| link_to u.handle, u } * ", ").html_safe %>
+      <%= f.submit (@event.users.include?(session[:login]) ? "Remove self" : "Add self") %>
+    </div>
+  <%- end -%>
 <%- end -%>
+  <%= form_for :comment, url: comments_path, method: :create, html: {id: "poly_comment"} do |f| %>
+<%= fields_for :comment_thread do |t| %>
+    <%= t.hidden_field :id, value: @event.comment_threads.first.id %>
+<%- end -%>
+    <%= f.hidden_field :body %>
+    <%= render partial: "comments/thread", locals: {f: f} %>
+  <%- end -%>
+</div>

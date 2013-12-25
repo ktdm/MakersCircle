@@ -58,13 +58,14 @@ body {
   font-style: italic;
   font-weight: normal;
   text-align: left;
-}
-
-.title {
-  margin-left: 5%;
-  width: 60%;
   background-color: #f02;
   color: white;
+}
+
+body > .title,
+.hello > .title {
+  margin-left: 5%;
+  width: 60%;
   font-size: 54pt;
   overflow: hidden;
   white-space: nowrap;
@@ -106,7 +107,7 @@ body {
 
 .title > a {
   font-weight: normal;
-  color: inherit;
+  color: inherit
 }
 .title > a:hover {
   text-decoration: none
@@ -187,12 +188,11 @@ body {
   text-align: center
 }
 
-.body {
+body > .body {
   background-image: url(/assets/flourish-003.png);
   background-position: 2% 0;
   background-repeat: no-repeat;
-  background-attachment: scroll;  
-  padding-bottom: 2em
+  background-attachment: scroll
 }
 
 .list_group,
@@ -204,7 +204,7 @@ body {
 }
 
 .list_group {
-  background-color: aliceblue;
+  background-color: aliceblue
 }
 
 .new {
@@ -213,7 +213,12 @@ body {
 }
 
 .show {
-  background-color: #f02
+  background-color: aliceblue;
+  padding: 10px 0
+}
+
+.comments {
+  background-color: aliceblue
 }
 
 label.form_label {

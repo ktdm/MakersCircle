@@ -1,45 +1,49 @@
 <div class="title">
-  <img src="/assets/mclogo-white.png" />
-  Makers' Circle
+  <a href="/">
+    <img src="/assets/mclogo-white.png" />
+    Makers' Circle
+  </a>
 </div>
+<div class="body">
 <%- if @post.user.nil? -%>
-<div class="show">
-  <div class="head_removed">[ removed ]</div>
-  <div class="back"><%= link_to "Back to all the posts", root_path %></div>
+  <div class="show">
+    <div class="removed">[ removed ]</div>
 </div>
 <%- elsif @post.user.id == session[:login] -%>
-<%= form_for :post, url: @post, method: :patch, html: {class: :show} do |f| %>
-  <div class="head_title" data-title="<%= @post.comment_threads.first.title %>">
-    <%= link_to @post.comment_threads.first.title, @post.item, class: :hide if @post.kind == "project" %>
-    <div class="head_rename">
+<%=   form_for :post, url: @post, method: :patch, html: {class: :"show active"} do |f| %>
+    <div class="title" data-title="<%= @post.comment_threads.first.title %>">
+      <%= link_to @post.comment_threads.first.title, @post.item, class: :hide if @post.kind == "project" %>
+      <div class="rename">
 <%=     fields_for :comment_thread do |t| %>
-      <%= t.text_field :title %>
+        <%= t.text_field :title %>
 <%-     end -%>
-<%=     f.submit "Rename" %>
+      </div>
     </div>
-  </div>
-  <div class="head_subhead">
-    <%= @post.kind %> by <%= link_to @post.user.handle, @post.user %> - 
-    <span class="action remove">don't remove</span> - 
-    <span class="action rename">don't rename</span>
-  </div>
-  <div class="head_remove">
-    <span>Are you <b>sure</b>?</span>
-    <%= f.submit "Remove", class: :hide %>
-  </div>
-  <div class="back"><%= link_to "Back to all the things", root_path %></div>
+    <div class="remove">
+      <span>Are you <b>sure</b>?</span>
+      <%= f.submit "Remove", class: :invisible %>
+    </div>
+    <div class="subhead">
+      <%= @post.kind %> by <%= link_to @post.user.handle, @post.user %> - 
+      <span class="action remove">don't remove</span> - 
+      <span class="action rename">don't rename</span>
+    </div>
+    <div class="message"></div>
+    <div id="post_rename_cell" class="submit">
+      <%= f.submit "Rename", tabIndex: -1 %>
+    </div>
 <%-   end -%>
 <%- else -%>
-<div class="show">
-  <div class="head_title"><%= link_to(@post.comment_threads.first.title, @post.item) if @post.kind == "project" %></div>
-  <div class="head_subhead"><%= @post.kind %> by <%= link_to @post.user.handle, @post.user %></div>
-  <div class="back"><%= link_to "Back to all the posts", posts_path %></div>
-</div>
+  <div class="show">
+    <div class="title"><%= link_to @post.comment_threads.first.title, @post.item if @post.kind == "project" %></div>
+    <div class="subhead"><%= @post.kind %> by <%= link_to @post.user.handle, @post.user %></div>
+  </div>
 <%- end -%>
-<%= form_for :comment, url: comments_path, method: :create do |f| %>
-<%=   fields_for :comment_thread do |t| %>
-  <%= t.hidden_field :id, value: @post.comment_threads.first.id %>
-<%-   end -%>
-  <%= f.hidden_field :body %>
+  <%= form_for :comment, url: comments_path, method: :create, html: {id: "poly_comment"} do |f| %>
+<%= fields_for :comment_thread do |t| %>
+    <%= t.hidden_field :id, value: @post.comment_threads.first.id %>
+<%- end -%>
+    <%= f.hidden_field :body %>
 <%=   render partial: "comments/thread", locals: {f: f} %>
-<%- end -%>
+  <%- end -%>
+</div>
