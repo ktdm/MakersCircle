@@ -7,7 +7,7 @@
 <div class="body">
 <%= render partial: "comments/list", locals: {threads: @comments} %>
 <%- if controller.allow_create :comments -%>
-  <%= form_for :comment, url: comments_path, html: {class: :new, id: "new_discussion"} do |f| %>
+  <%= form_for :discussion, url: comments_path, action: :comments, html: {class: :new, id: "new_discussion"} do |f| %>
     <label for="new_discussion" class="form_label">Start a discussion</label>
     <div id="discussion_title_cell">
 <%=     fields_for :comment_thread do |t| %>

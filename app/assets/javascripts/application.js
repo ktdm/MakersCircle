@@ -6,7 +6,7 @@
 
 $(document).ready(function () {
 
-  $(".list_group").each(function (i, el) {
+  $(".threads").each(function (i, el) {
     var th = $(this).find("tr:first-of-type > *");
     $("<span class=\"th\">with</span>").appendTo(th.eq(-2));
     $("<span class=\"th\">by</span>").appendTo(th.eq(-3));

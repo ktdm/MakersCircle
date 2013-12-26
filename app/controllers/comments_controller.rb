@@ -19,7 +19,9 @@ class CommentsController < ApplicationController
   end
 
   def create
-    comment = Comment.create! comment_params
+    discussion_params["comment"] = discussion_params.delete("discussion") if params[:discussion]
+    comment_or_discussion_params = discussion_params rescue comment_params
+    comment = Comment.create! comment_or_discussion_params
     thread = comment_thread_params[:id] ?
       CommentThread.find(comment_thread_params[:id]) :
       CommentThread.create!({ commentable_type: "Comment", commentable_id: comment.id }.merge comment_thread_params)
@@ -40,7 +42,9 @@ class CommentsController < ApplicationController
 
   def update
     @comment = Comment.find params[:id]
-    @comment.update! comment_params
+    discussion_params["comment"] = discussion_params.delete("discussion") if params[:discussion]
+    comment_or_discussion_params = discussion_params rescue comment_params
+    @comment.update! comment_or_discussion_params
     @comment.comment_threads.first.update! comment_thread_params rescue 0
     redirect_to :back
   end
@@ -48,6 +52,9 @@ class CommentsController < ApplicationController
   def destroy
     comment = Comment.find params[:id]
     comment.destroy
+    thread = CommentThread.find comment_thread_params[:id]
+    redirect_to self.send(:"#{thread.commentable_type.downcase}_path", thread.commentable_id)
+  rescue
     redirect_to comment_path(params[:id])
   end
 
@@ -55,6 +62,11 @@ class CommentsController < ApplicationController
     def comment_params
       params.require(:comment).permit(:body, :comment_id)
     end
+
+    def discussion_params
+      params.require(:discussion).permit(:body, :comment_id)
+    end
+
     def comment_thread_params
       params.require(:comment_thread).permit(:title, :id)
     end

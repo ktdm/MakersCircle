@@ -6,7 +6,7 @@
   <%= javascript_include_tag "application", controller_name, "data-turbolinks-track" => true %>
   <%= csrf_meta_tags %>
 </head>
-<body>
+<body class="<%= session[:login] ? controller.controller_name : "front" %>">
 <%- if session[:login] && (controller.controller_name != "users" || controller.action_name != "new") -%>
 <div class="login_box">
   <%= link_to "logout", logout_path %> | 

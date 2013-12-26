@@ -133,7 +133,7 @@ $(document).ready(function () {
     }
   });
 
-  $(".comments .edit").click(function () {
+  $("div.comments .edit").click(function () {
     c = $(this).closest("[id^=comment_]");
     c.find(".comment").toggleClass("hide");
     c.find("input[value=Update]").toggleClass("hide");
@@ -148,14 +148,20 @@ $(document).ready(function () {
     $("[name*='[body_'], [name$='[new_body]']").prop({disabled: true})
   });
 
-  $("input[value=Update]").click(function() {
+  $("div.comments input[value=Update]").click(function() {
     this.form["comment[body]"].value = $(this).closest("[id^=comment_]").find("textarea").val();
     this.form.action += "/" + $(this).closest("[id^=comment_]").attr("id").split("_")[1];
     this.form._method.value = "patch";
     $("[name*='[body_'], [name$='[new_body]']").prop({disabled: true})
   });
 
-  $(".comments .action.remove").click(function () {
+  $("div.comments input[value=Remove]").click(function() {
+    $("[name*='[body_'], [name$='[new_body]']").prop({disabled: true})
+    this.form.action += "/" + $(this).closest("[id^=comment_]").attr("id").split("_")[1];
+    this.form._method.value = "delete"
+  });
+
+  $("div.comments .action.remove").click(function () {
     c = $(this).closest("[id^=comment_]");
     c.find(".comment_remove").toggleClass("hide");
     dont.call(this, "remove")
